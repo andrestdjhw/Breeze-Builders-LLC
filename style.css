@@ -1,0 +1,15 @@
+/*
+Theme Name: Breeze Builders
+Theme URI: https://breezebuilders.example
+Author: 828 Marketing Solutions
+Author URI: https://828marketingsolutions.com
+Description: Custom WordPress theme for Breeze Builders LLC — multi-trade contractor (Remodeling · HVAC · Electrical · General Contracting) serving Las Vegas, Henderson & North Las Vegas, NV. Trust-forward, no-fear positioning per the 828 strategic brief.
+Version: 0.1.0
+Requires at least: 6.4
+Requires PHP: 8.0
+Text Domain: breeze
+License: Proprietary — 828 Marketing Solutions
+*/
+
+/* Actual styles live in /assets/css/tokens.css and /assets/css/main.css,
+   enqueued with filemtime() versioning in functions.php. */

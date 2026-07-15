@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Breeze Builders — Design Tokens
+   Palette + type derived from the 828 strategic brief (navy + gold).
+   Confirm exact brand HEX before launch (TODO #1).
+   ========================================================================== */
+
+:root {
+  /* --- Color (828 approved branding — confirm HEX with client, TODO #1) --- */
+  --navy:        #14213d;   /* midnight blue — trust/authority: heroes, footer, bands */
+  --navy-700:    #0a3d62;   /* deep blue — raised panels / cards on dark */
+  --navy-900:    #0d1730;   /* deepest */
+  --gold:        #c8863c;   /* warm amber — single accent (desert warmth) */
+  --gold-600:    #a86e2d;   /* amber hover / text-on-light */
+  --ink:         #1c2430;   /* body text on light */
+  --muted:       #6c7a89;   /* steel grey — secondary text */
+  --line:        #dde3ea;   /* hairlines on light */
+  --paper:       #ffffff;   /* clarity / clean */
+  --mist:        #f2f5f8;   /* alt light section */
+  --on-dark:     #eef2f8;   /* body text on navy */
+  --on-dark-dim: #aeb9c9;   /* secondary text on navy */
+
+  /* --- Type --- */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* fluid type scale (1.20 minor-third-ish, tuned for a 45–64 audience: generous) */
+  --fs-eyebrow: 0.78rem;
+  --fs-small:   0.92rem;
+  --fs-body:    clamp(1.02rem, 0.98rem + 0.25vw, 1.14rem);
+  --fs-lead:    clamp(1.18rem, 1.10rem + 0.5vw, 1.4rem);
+  --fs-h3:      clamp(1.25rem, 1.15rem + 0.6vw, 1.55rem);
+  --fs-h2:      clamp(1.7rem, 1.45rem + 1.3vw, 2.5rem);
+  --fs-h1:      clamp(2.2rem, 1.7rem + 2.6vw, 3.6rem);
+  --fs-display: clamp(2.6rem, 1.9rem + 3.4vw, 4.4rem);
+
+  --lh-tight: 1.08;
+  --lh-snug:  1.25;
+  --lh-body:  1.6;
+
+  /* --- Space --- */
+  --sp-1: 0.5rem;
+  --sp-2: 0.75rem;
+  --sp-3: 1rem;
+  --sp-4: 1.5rem;
+  --sp-5: 2rem;
+  --sp-6: 3rem;
+  --sp-7: 4.5rem;
+  --sp-8: 6.5rem;
+
+  --wrap:    1160px;
+  --wrap-sm: 760px;
+
+  --radius:    6px;
+  --radius-lg: 10px;
+
+  --shadow-sm: 0 1px 2px rgba(15, 32, 56, 0.06), 0 2px 8px rgba(15, 32, 56, 0.05);
+  --shadow-md: 0 8px 30px rgba(15, 32, 56, 0.10);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
