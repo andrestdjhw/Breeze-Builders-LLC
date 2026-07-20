@@ -67,6 +67,21 @@ function breeze_config( $key = null ) {
 		'cities'        => array( 'Henderson', 'Las Vegas', 'North Las Vegas', 'Summerlin', 'Green Valley', 'Anthem', 'Seven Hills', 'Southern Highlands' ),
 		'extended'      => 'California · Arizona (by project)', // confirm CSLB/ROC + cities before publishing (#3/#10)
 		'domain'        => 'breezebuildersgc.com',
+		// Hero background video — path relative to /wp-content/ (works on local + production).
+		'hero_video'    => '/uploads/2026/07/blured-handyman-give-you-screwdriver-in-blue-studi-2025-12-17-05-38-55-utc.mp4',
+		'hero_poster'   => '', // optional: first-frame image for faster paint / reduced-motion fallback
+		// Service page hero backgrounds — paths relative to /wp-content/.
+		'hero_images'   => array(
+			'remodeling'         => '/uploads/2026/07/Remodeling-scaled.jpg',
+			'hvac'               => '/uploads/2026/07/HVAC-scaled.jpg',
+			'electrical'         => '/uploads/2026/07/Electrical-scaled.jpg',
+			'general-contractor' => '/uploads/2026/07/GeneralContracting-scaled.jpg',
+		),
+		'social'        => array(   // URLs pendientes (Daniel las pasa); '#' deja los links presentes pero inertes
+			'facebook'  => '#',
+			'tiktok'    => '#',
+			'instagram' => '#',
+		),
 	);
 	if ( $key ) {
 		return isset( $config[ $key ] ) ? $config[ $key ] : '';
@@ -82,6 +97,43 @@ function breeze_config( $key = null ) {
  */
 function breeze_part( $slug, $args = array() ) {
 	get_template_part( 'template-parts/' . $slug, null, $args );
+}
+
+/**
+ * Get a service hero background image path by key (remodeling, hvac, electrical, general-contractor).
+ *
+ * @param string $key Service key as defined in breeze_config('hero_images').
+ * @return string Path relative to /wp-content/, or '' if not set.
+ */
+function breeze_hero_image( $key ) {
+	$images = breeze_config( 'hero_images' );
+	return isset( $images[ $key ] ) ? $images[ $key ] : '';
+}
+
+/**
+ * Render the social icon links (Facebook, TikTok, Instagram).
+ * URLs come from breeze_config('social'); a '#' value renders the icon but stays inert.
+ * Used by both the header utility bar and the footer.
+ *
+ * @param string $classname Wrapper class (e.g. 'utility-bar__social' or 'footer-social').
+ */
+function breeze_social_links( $classname = 'social-links' ) {
+	$social = breeze_config( 'social' );
+	$icons  = array(
+		'facebook'  => '<path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0022 12z"/>',
+		'tiktok'    => '<path d="M16.5 3c.3 2 1.62 3.57 3.5 3.86v2.64c-1.3.08-2.55-.35-3.66-1.05v5.92c0 3.02-2.2 5.63-5.28 5.63-3 0-5.18-2.48-5.18-5.4 0-3.13 2.53-5.42 5.6-5.1v2.72c-.32-.1-.66-.16-1-.16-1.4 0-2.5 1.16-2.5 2.6 0 1.48 1.1 2.6 2.5 2.6 1.48 0 2.6-1.2 2.6-2.72V3h3.42z"/>',
+		'instagram' => '<rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2"/>',
+	);
+	$labels = array( 'facebook' => 'Facebook', 'tiktok' => 'TikTok', 'instagram' => 'Instagram' );
+
+	echo '<div class="' . esc_attr( $classname ) . '">';
+	foreach ( $icons as $key => $svg ) {
+		$url = isset( $social[ $key ] ) ? $social[ $key ] : '#';
+		echo '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer" aria-label="' . esc_attr( $labels[ $key ] ) . '">';
+		echo '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">' . $svg . '</svg>'; // phpcs:ignore -- static inline icon markup
+		echo '</a>';
+	}
+	echo '</div>';
 }
 
 /**

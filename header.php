@@ -20,14 +20,17 @@ $phone_href    = breeze_config( 'phone_href' );
 <header class="site-header">
 	<div class="utility-bar">
 		<div class="wrap">
+			<a class="utility-bar__phone" href="tel:<?php echo esc_attr( $phone_href ); ?>">
+				Call <?php echo esc_html( $phone_display ); ?>
+			</a>
+
 			<div class="utility-bar__trust">
 				<span><strong>Licensed</strong> <?php echo esc_html( breeze_config( 'license' ) ); ?></span>
 				<span><strong>Fully insured</strong> <?php echo esc_html( breeze_config( 'insured' ) ); ?></span>
 				<span>Serving the valley since <strong><?php echo esc_html( breeze_config( 'since' ) ); ?></strong></span>
 			</div>
-			<a class="utility-bar__phone" href="tel:<?php echo esc_attr( $phone_href ); ?>">
-				Call <?php echo esc_html( $phone_display ); ?>
-			</a>
+
+			<?php breeze_social_links( 'utility-bar__social' ); ?>
 		</div>
 	</div>
 

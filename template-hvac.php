@@ -6,6 +6,7 @@
 get_header();
 breeze_part( 'service-page', array(
 	'eyebrow' => 'HVAC',
+	'image'   => breeze_hero_image( 'hvac' ),
 	'title'   => 'When your AC quits in July, you need answers — not a sales pitch.',
 	'lead'    => 'Fast, honest HVAC repair, replacement, and high-efficiency upgrades for Las Vegas homes. We tell you the truth about repair vs. replace, and we back it with numbers.',
 	'primary' => array( 'label' => 'AC Down? Call Now', 'url' => 'tel:' . breeze_config( 'phone_href' ) ),

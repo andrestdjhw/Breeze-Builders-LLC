@@ -72,16 +72,31 @@ p  { margin: 0 0 var(--sp-3); }
 
 /* ---------- Header ---------- */
 .site-header { position: sticky; top: 0; z-index: 50; background: var(--navy); color: #fff; }
-.utility-bar {
-  background: var(--navy-900); font-size: var(--fs-small);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-}
-.utility-bar .wrap { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); padding-block: 0.5rem; }
-.utility-bar__trust { color: var(--on-dark-dim); display: flex; gap: 1rem; flex-wrap: wrap; }
-.utility-bar__trust strong { color: #fff; font-weight: 600; }
-.utility-bar__phone { color: #fff; font-weight: 600; white-space: nowrap; }
-.utility-bar__phone:hover { color: var(--gold); text-decoration: none; }
 
+/* Light utility bar */
+.utility-bar {
+  background: var(--mist); color: var(--ink); font-size: var(--fs-small);
+  border-bottom: 1px solid var(--line);
+  max-height: 64px; overflow: hidden;
+  transition: max-height .3s var(--ease), opacity .25s var(--ease);
+}
+.site-header.nav-up .utility-bar { max-height: 0; opacity: 0; border-bottom-color: transparent; }
+.utility-bar .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--sp-3); padding-block: 0.5rem; }
+.utility-bar__phone { justify-self: start; color: var(--navy); font-weight: 700; white-space: nowrap; }
+.utility-bar__phone:hover { color: var(--gold-600); text-decoration: none; }
+.utility-bar__trust { justify-self: center; color: var(--muted); display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.utility-bar__trust strong { color: var(--navy); font-weight: 700; }
+.utility-bar__social { justify-self: end; display: flex; align-items: center; gap: 0.9rem; }
+.utility-bar__social a { color: var(--muted); display: inline-flex; }
+.utility-bar__social a:hover { color: var(--navy); text-decoration: none; }
+.utility-bar__social svg { width: 18px; height: 18px; display: block; }
+@media (max-width: 640px) {
+  .utility-bar .wrap { grid-template-columns: 1fr auto; }
+  .utility-bar__trust { display: none; }
+}
+
+/* Masthead — gradient across the two brand blues */
+.masthead { background: linear-gradient(100deg, var(--navy) 0%, var(--navy) 35%, var(--navy-700) 100%); }
 .masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); padding-block: 0.9rem; }
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; letter-spacing: 0.01em; }
 .brand:hover { text-decoration: none; color: #fff; }
@@ -104,19 +119,69 @@ p  { margin: 0 0 var(--sp-3); }
 
 /* ---------- Hero ---------- */
 .hero { background: var(--navy); color: var(--on-dark); padding-block: var(--sp-7) var(--sp-6); position: relative; }
-.hero__grid { display: grid; gap: var(--sp-5); grid-template-columns: 1.15fr 0.85fr; align-items: center; }
+.hero__content { position: relative; z-index: 2; max-width: 46rem; }
 .hero h1 { color: #fff; font-size: var(--fs-display); max-width: 16ch; }
 .hero .lead { margin-bottom: var(--sp-4); max-width: 46ch; }
+
+/* Background media (video or image) */
+.hero--media { padding-block: var(--sp-8) var(--sp-7); overflow: hidden; }
+.hero__bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--navy); }
+.hero__media-el { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Scrim keeps headline contrast readable over any frame or photo */
+.hero__scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10,23,48,.92) 0%, rgba(10,23,48,.80) 45%, rgba(10,23,48,.45) 100%),
+    linear-gradient(180deg, rgba(10,23,48,.55) 0%, rgba(10,23,48,.25) 40%, rgba(10,23,48,.70) 100%);
+}
+.hero--media .lead { color: var(--on-dark); }
+@media (max-width: 860px) {
+  .hero--media { padding-block: var(--sp-7) var(--sp-6); }
+  .hero__scrim { background: linear-gradient(180deg, rgba(10,23,48,.80) 0%, rgba(10,23,48,.72) 55%, rgba(10,23,48,.88) 100%); }
+}
+/* Reduced motion: drop the moving video, keep the navy field (images are static, so they stay) */
+@media (prefers-reduced-motion: reduce) {
+  video.hero__media-el { display: none; }
+  .hero__bg { background: linear-gradient(135deg, var(--navy-700), var(--navy-900)); }
+}
+
+/* Legacy side-media hero (used where no video is set) */
+.hero__grid { display: grid; gap: var(--sp-5); grid-template-columns: 1.15fr 0.85fr; align-items: center; }
 .hero__media { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 4 / 3; background: linear-gradient(135deg, var(--navy-700), var(--navy-900)); display: grid; place-items: center; }
 .hero__media span { color: var(--on-dark-dim); font-size: var(--fs-small); text-align: center; padding: 1rem; }
 @media (max-width: 860px) { .hero__grid { grid-template-columns: 1fr; } .hero__media { order: -1; aspect-ratio: 16/10; } }
 
-/* ---------- Trust bar (proof strip) ---------- */
-.trust-strip { background: var(--navy-900); border-top: 1px solid rgba(255,255,255,.08); }
-.trust-strip .wrap { display: flex; flex-wrap: wrap; gap: var(--sp-4) var(--sp-6); justify-content: space-between; padding-block: var(--sp-3); }
-.trust-item { display: flex; align-items: center; gap: 0.6rem; color: var(--on-dark-dim); font-size: 0.95rem; }
+/* ---------- Trust bar (animated marquee) ---------- */
+.trust-strip {
+  background: var(--navy-900); border-top: 1px solid rgba(255,255,255,.08);
+  overflow: hidden; padding-block: var(--sp-3); position: relative;
+}
+/* Soft fade at both edges so items enter/exit instead of popping */
+.trust-strip::before, .trust-strip::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+}
+.trust-strip::before { left: 0; background: linear-gradient(90deg, var(--navy-900), transparent); }
+.trust-strip::after { right: 0; background: linear-gradient(270deg, var(--navy-900), transparent); }
+
+.trust-marquee { display: flex; width: max-content; animation: breeze-marquee 34s linear infinite; }
+.trust-strip:hover .trust-marquee { animation-play-state: paused; }
+.trust-marquee__group { display: flex; align-items: center; gap: var(--sp-6); padding-right: var(--sp-6); flex: none; }
+.trust-item { display: flex; align-items: center; gap: 0.6rem; color: var(--on-dark-dim); font-size: 0.95rem; white-space: nowrap; }
 .trust-item strong { color: #fff; font-weight: 600; }
 .trust-item .dot { color: var(--gold); }
+
+@keyframes breeze-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Reduced motion: no scrolling — show a single static, centered row */
+@media (prefers-reduced-motion: reduce) {
+  .trust-marquee { animation: none !important; width: 100%; justify-content: center; flex-wrap: wrap; }
+  .trust-marquee__group[aria-hidden="true"] { display: none; }
+  .trust-marquee__group { flex-wrap: wrap; justify-content: center; padding-right: 0; }
+  .trust-strip::before, .trust-strip::after { display: none; }
+}
 
 /* ---------- Services grid ---------- */
 .cards { display: grid; gap: var(--sp-4); grid-template-columns: repeat(4, 1fr); }
@@ -213,6 +278,10 @@ p  { margin: 0 0 var(--sp-3); }
 .site-footer ul { list-style: none; margin: 0; padding: 0; }
 .site-footer li { margin-bottom: 0.5rem; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); margin-top: var(--sp-5); padding-top: var(--sp-3); font-size: var(--fs-small); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+.footer-social { display: flex; align-items: center; gap: 0.9rem; margin-top: var(--sp-3); }
+.footer-social a { color: var(--on-dark-dim); display: inline-flex; }
+.footer-social a:hover { color: #fff; text-decoration: none; }
+.footer-social svg { width: 20px; height: 20px; display: block; }
 
 /* ---------- Sticky mobile call (urgency, true to HVAC) ---------- */
 .sticky-call { display: none; }
@@ -224,6 +293,21 @@ p  { margin: 0 0 var(--sp-3); }
   .sticky-call .btn { flex: 1; justify-content: center; box-shadow: var(--shadow-md); }
   body { padding-bottom: 76px; }
 }
+
+/* ---------- Floating "Call us now" button (appears on scroll; desktop/tablet) ---------- */
+.call-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  background: var(--gold); color: var(--navy); font-family: var(--font-body);
+  font-weight: 700; font-size: 1rem; text-decoration: none;
+  padding: 0.85rem 1.3rem; border-radius: 999px; box-shadow: var(--shadow-md);
+  opacity: 0; transform: translateY(16px); pointer-events: none;
+  transition: opacity .25s var(--ease), transform .25s var(--ease), background .15s var(--ease);
+}
+.call-fab svg { width: 19px; height: 19px; }
+.call-fab:hover { background: var(--gold-600); color: var(--navy); text-decoration: none; }
+.call-fab.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+@media (max-width: 720px) { .call-fab { display: none; } } /* mobile already uses .sticky-call */
 
 /* ---------- Motion ---------- */
 @media (prefers-reduced-motion: reduce) {

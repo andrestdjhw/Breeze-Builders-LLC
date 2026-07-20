@@ -6,6 +6,7 @@
 get_header();
 breeze_part( 'service-page', array(
 	'eyebrow' => 'Electrical',
+	'image'   => breeze_hero_image( 'electrical' ),
 	'title'   => 'Electrical work done safe, to code, and by a licensed team.',
 	'lead'    => 'Panel upgrades, wiring, EV chargers, lighting, and safety work — from a C-2 licensed electrical contractor you can trust inside your home.',
 	'intro_head' => 'Why it matters',

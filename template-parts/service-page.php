@@ -15,11 +15,13 @@ $a = wp_parse_args( $args, array(
 	'expect_head' => 'What you can expect', 'expect' => array(),
 	'prices' => null, 'prices_note' => '',
 	'closing_head' => '', 'closing_body' => '',
+	'image' => '',
 ) );
 
 breeze_part( 'hero', array(
 	'eyebrow' => $a['eyebrow'], 'title' => $a['title'], 'lead' => $a['lead'],
 	'primary' => $a['primary'], 'secondary' => $a['secondary'],
+	'image'   => $a['image'],
 ) );
 ?>
 <section class="section">

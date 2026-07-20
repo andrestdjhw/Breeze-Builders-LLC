@@ -30,4 +30,37 @@
     }
     el.addEventListener('pointermove', function (e) { set(e.clientX); });
   });
+
+  // Scroll behavior: hide top utility bar on scroll down / show on scroll up,
+  // and reveal the floating "Call us now" button once scrolled down the page.
+  var header = document.querySelector('.site-header');
+  var fab = document.querySelector('.call-fab');
+  if (header || fab) {
+    var lastY = 0, ticking = false;
+    function onScroll() {
+      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+      // Floating call button: visible after scrolling down past the hero
+      if (fab) {
+        if (y > 300) { fab.classList.add('is-visible'); }
+        else { fab.classList.remove('is-visible'); }
+      }
+
+      // Top utility bar: hide on scroll down, show on scroll up (masthead stays sticky)
+      if (header) {
+        if (y <= 40) {
+          header.classList.remove('nav-up');           // always show near the top
+        } else if (Math.abs(y - lastY) > 8) {           // ignore tiny jitters
+          if (y > lastY) { header.classList.add('nav-up'); }   // scrolling down → hide topbar
+          else { header.classList.remove('nav-up'); }          // scrolling up → show topbar
+        }
+      }
+
+      lastY = y;
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+    }, { passive: true });
+  }
 })();
