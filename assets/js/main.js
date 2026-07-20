@@ -31,6 +31,88 @@
     el.addEventListener('pointermove', function (e) { set(e.clientX); });
   });
 
+  // Services carousel — continuous marquee-style scroll (loops seamlessly),
+  // with prev/next controls and swipe still available.
+  document.querySelectorAll('[data-carousel]').forEach(function (root) {
+    var track = root.querySelector('[data-carousel-track]');
+    var prev = root.querySelector('[data-carousel-prev]');
+    var next = root.querySelector('[data-carousel-next]');
+    if (!track) { return; }
+
+    function step() {
+      var card = track.querySelector('.scard');
+      if (!card) { return track.clientWidth; }
+      var styles = window.getComputedStyle(track);
+      var gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    // Width of one full set of cards — the point where we wrap around.
+    function cycle() {
+      var originals = track.querySelectorAll('.scard:not([aria-hidden="true"])').length;
+      return originals * step();
+    }
+
+    function wrap() {
+      var c = cycle();
+      if (c <= 0) { return; }
+      if (track.scrollLeft >= c) { track.scrollLeft -= c; }
+      else if (track.scrollLeft <= 0) { track.scrollLeft += c; }
+    }
+
+    if (prev) { prev.addEventListener('click', function () { wrap(); track.scrollBy({ left: -step(), behavior: 'smooth' }); }); }
+    if (next) { next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); }); }
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) { return; }
+
+    // --- Continuous scroll ------------------------------------------------
+    var SPEED = 42;          // pixels per second — matches the trust bar's calm pace
+    var RESUME_AFTER = 2000; // ms of stillness before motion picks back up
+    var last = null, raf = null, paused = false, inView = true, idle = null;
+
+    function frame(ts) {
+      if (last === null) { last = ts; }
+      var dt = ts - last;
+      last = ts;
+      if (!paused && inView && !document.hidden) {
+        track.scrollLeft += SPEED * (dt / 1000);
+        wrap();
+      }
+      raf = window.requestAnimationFrame(frame);
+    }
+
+    function play() { if (!raf) { last = null; raf = window.requestAnimationFrame(frame); } }
+    function stop() { if (raf) { window.cancelAnimationFrame(raf); raf = null; } }
+    function pause() { paused = true; }
+    function resume() { paused = false; last = null; }
+
+    // Pause while the visitor reads or interacts
+    root.addEventListener('mouseenter', pause);
+    root.addEventListener('mouseleave', resume);
+    root.addEventListener('focusin', pause);
+    root.addEventListener('focusout', resume);
+    track.addEventListener('pointerdown', pause);
+    track.addEventListener('touchstart', pause, { passive: true });
+
+    // After a manual swipe or arrow click, resume once things settle
+    track.addEventListener('scroll', function () {
+      if (idle) { window.clearTimeout(idle); }
+      idle = window.setTimeout(function () { if (!root.matches(':hover')) { resume(); } }, RESUME_AFTER);
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', function () { last = null; });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        last = null;
+      }, { threshold: 0.05 }).observe(root);
+    }
+
+    play();
+  });
+
   // Scroll behavior: hide top utility bar on scroll down / show on scroll up,
   // and reveal the floating "Call us now" button once scrolled down the page.
   var header = document.querySelector('.site-header');
