@@ -11,7 +11,7 @@ get_header();
 	<div class="wrap wrap--sm" style="text-align:center;">
 		<span class="eyebrow" style="justify-content:center;">Get a free estimate</span>
 		<h1 style="color:#fff;">Tell us what your property needs.</h1>
-		<p class="lead">Get a clear, honest estimate from a licensed, insured team. No pressure, no scare tactics — just a straight answer.</p>
+		<p class="lead">Get a clear, honest estimate from a licensed, insured team. No pressure, no scare tactics. Just a straight answer.</p>
 	</div>
 </section>
 <?php breeze_part( 'trust-strip' ); ?>
@@ -40,8 +40,8 @@ get_header();
 				<h3>Why homeowners call us</h3>
 				<ul class="ticks">
 					<li>Licensed B + C-2 · fully insured</li>
-					<li>We answer fast — the sooner we talk, the sooner it's handled</li>
-					<li>Financing available — pre-qualify without affecting your credit</li>
+					<li>We answer fast: the sooner we talk, the sooner it's handled</li>
+					<li>Financing available: pre-qualify without affecting your credit</li>
 				</ul>
 				<div class="section--navy" style="border-radius:var(--radius-lg);padding:1.5rem;margin-top:1.5rem;">
 					<h3 style="color:#fff;">AC emergency?</h3>

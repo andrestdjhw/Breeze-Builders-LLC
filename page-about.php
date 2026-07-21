@@ -9,7 +9,7 @@ get_header();
 breeze_part( 'hero', array(
 	'eyebrow' => 'About Breeze Builders',
 	'title'   => 'The contractor that does what most only subcontract.',
-	'lead'    => 'Breeze Builders was built to be the one company a homeowner can trust with the whole property — not four separate specialists hoping they coordinate.',
+	'lead'    => 'Breeze Builders was built to be the one company a homeowner can trust with the whole property, not four separate specialists hoping they coordinate.',
 	'media_note' => 'Team photo / fleet (TODO #3)',
 ) );
 ?>
@@ -26,7 +26,7 @@ breeze_part( 'hero', array(
 		<div class="cards" style="margin-top:1.5rem;">
 			<div class="card"><h3>Multi-trade under one roof</h3><p>Remodel, HVAC, electrical, and general contracting from one accountable team.</p></div>
 			<div class="card"><h3>Licensed &amp; insured</h3><p>B + C-2, plus General Liability, Workers' Comp, and Umbrella coverage.</p></div>
-			<div class="card"><h3>Honest by policy</h3><p>We tell you when to repair and when to replace — even when replacing pays us more.</p></div>
+			<div class="card"><h3>Honest by policy</h3><p>We tell you when to repair and when to replace, even when replacing pays us more.</p></div>
 			<div class="card"><h3>Local &amp; responsive</h3><p>Based in the valley, built for the valley's heat, homes, and homeowners.</p></div>
 		</div>
 	</div>

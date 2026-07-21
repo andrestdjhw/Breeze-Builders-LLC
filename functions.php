@@ -77,6 +77,8 @@ function breeze_config( $key = null ) {
 			'electrical'         => '/uploads/2026/07/Electrical-scaled.jpg',
 			'general-contractor' => '/uploads/2026/07/GeneralContracting-scaled.jpg',
 		),
+		// Front-page "Serving the valley" section background.
+		'serving_bg'    => '/uploads/2026/07/ServingAreasBreeze-scaled.webp',
 		'social'        => array(   // URLs pendientes (Daniel las pasa); '#' deja los links presentes pero inertes
 			'facebook'  => '#',
 			'tiktok'    => '#',

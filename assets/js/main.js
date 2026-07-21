@@ -113,6 +113,38 @@
     play();
   });
 
+  // "Open book" reveal — unfolds every time the section scrolls into view
+  // (folds closed again when it leaves, in either direction)
+  var books = document.querySelectorAll('[data-book]');
+  if (books.length) {
+    if ('IntersectionObserver' in window) {
+      var bookObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          entry.target.classList.toggle('in-view', entry.isIntersecting);
+        });
+      }, { threshold: 0.25 });
+      books.forEach(function (b) { bookObserver.observe(b); });
+    } else {
+      books.forEach(function (b) { b.classList.add('in-view'); });
+    }
+  }
+
+  // Fear → answer rows — each row reveals as it scrolls into view,
+  // and resets when it leaves so the effect replays in both directions
+  var fearRows = document.querySelectorAll('.fear-row');
+  if (fearRows.length) {
+    if ('IntersectionObserver' in window) {
+      var rowObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          entry.target.classList.toggle('in-view', entry.isIntersecting);
+        });
+      }, { threshold: 0.35, rootMargin: '0px 0px -5% 0px' });
+      fearRows.forEach(function (r) { rowObserver.observe(r); });
+    } else {
+      fearRows.forEach(function (r) { r.classList.add('in-view'); });
+    }
+  }
+
   // Scroll behavior: hide top utility bar on scroll down / show on scroll up,
   // and reveal the floating "Call us now" button once scrolled down the page.
   var header = document.querySelector('.site-header');

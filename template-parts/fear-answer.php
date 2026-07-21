@@ -1,14 +1,14 @@
 <?php
 /** Signature device: the stories in the buyer's head → how Breeze rewrites them. @package Breeze */
 $rows = array(
-	array( 'They\'ll scare me into a $15,000 sale.', 'Honest, educational advice with good / better / premium options — never a scare tactic.' ),
-	array( 'In summer, they charge whatever they want.', 'Transparent, no-pressure pricing — the same fair quote in July as in January.' ),
-	array( 'They\'ll take a deposit and disappear.', 'Licensed, insured, and here since 2021 — a real 14-person team, not a one-off.' ),
-	array( 'The estimate says one thing; the invoice says another.', 'Clear scope and an organized estimate — what we quote is what you pay.' ),
+	array( 'They\'ll scare me into a $15,000 sale.', 'Honest, educational advice with good / better / premium options, never a scare tactic.' ),
+	array( 'In summer, they charge whatever they want.', 'Transparent, no-pressure pricing: the same fair quote in July as in January.' ),
+	array( 'They\'ll take a deposit and disappear.', 'Licensed, insured, and here since 2021. A real 14-person team, not a one-off.' ),
+	array( 'The estimate says one thing; the invoice says another.', 'Clear scope and an organized estimate: what we quote is what you pay.' ),
 	array( 'They\'ll leave my house a mess.', 'A clean-execution promise, backed by before/after proof.' ),
 	array( 'No license or insurance means the problem becomes mine.', 'Licensed B + C-2 and fully insured, shown up front. The risk stays with us.' ),
-	array( 'Moving is too expensive — I\'d rather invest in this house.', 'We protect and increase your property\'s value, so the investment pays off.' ),
-	array( 'Lots of reviews and they answer fast — they must be safe.', 'Real Google reviews and fast response, right beside every way to reach us.' ),
+	array( 'Moving is too expensive. I\'d rather invest in this house.', 'We protect and increase your property\'s value, so the investment pays off.' ),
+	array( 'Lots of reviews and they answer fast. They must be safe.', 'Real Google reviews and fast response, right beside every way to reach us.' ),
 );
 $check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>';
 ?>

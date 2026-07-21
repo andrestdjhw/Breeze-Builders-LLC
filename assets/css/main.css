@@ -183,6 +183,59 @@ p  { margin: 0 0 var(--sp-3); }
   .trust-strip::before, .trust-strip::after { display: none; }
 }
 
+/* ---------- Photo-background section (e.g. "Serving the valley") ---------- */
+.section--photo { position: relative; overflow: hidden; color: var(--on-dark); }
+.section--photo .section__bg { position: absolute; inset: 0; z-index: 0; background: var(--navy); }
+.section--photo .section__bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.section--photo .section__scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10,23,48,.90) 0%, rgba(10,23,48,.78) 50%, rgba(10,23,48,.55) 100%),
+    linear-gradient(180deg, rgba(10,23,48,.35) 0%, rgba(10,23,48,.20) 50%, rgba(10,23,48,.45) 100%);
+}
+.section--photo .wrap { position: relative; z-index: 1; }
+.section--photo h2 { color: #fff; }
+.section--photo p { color: var(--on-dark); }
+.section--photo .eyebrow { color: var(--gold); }
+@media (max-width: 860px) {
+  .section--photo .section__scrim { background: linear-gradient(180deg, rgba(10,23,48,.82) 0%, rgba(10,23,48,.74) 55%, rgba(10,23,48,.86) 100%); }
+}
+
+/* ---------- "Open book" reveal (multi-trade section) ---------- */
+.book {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6);
+  perspective: 1600px; /* depth for the page-turn */
+}
+.book__page {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  opacity: 0;
+  transition: transform 1.6s var(--ease), opacity 1.2s var(--ease);
+}
+/* Folded like a closed book: both pages hinge from the center spine */
+.book__page--left  { transform-origin: right center; transform: rotateY(48deg); }
+.book__page--right { transform-origin: left center;  transform: rotateY(-48deg); transition-delay: .25s; }
+/* Open when scrolled into view */
+.book.in-view .book__page { transform: rotateY(0); opacity: 1; }
+
+/* Right page reads as a card so the "page" metaphor lands */
+.book__page--right {
+  background: var(--mist); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-sm);
+}
+.book__page--left h2 { max-width: 20ch; }
+
+@media (max-width: 800px) {
+  .book { grid-template-columns: 1fr; gap: var(--sp-4); }
+  .book__page--left  { transform: rotateY(0) translateY(24px); }
+  .book__page--right { transform: rotateY(0) translateY(24px); }
+  .book.in-view .book__page { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .book__page { transform: none !important; opacity: 1 !important; transition: none !important; }
+}
+
 /* ---------- Services carousel ---------- */
 .carousel { position: relative; }
 .carousel__track {
@@ -267,6 +320,22 @@ p  { margin: 0 0 var(--sp-3); }
 /* ---------- Fear → Answer (signature device) ---------- */
 .fear-list { display: grid; gap: 0; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
 .fear-row { display: grid; grid-template-columns: 1fr 1fr; }
+
+/* Scroll reveal: each row slides up as it enters the viewport */
+.fear-row {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .8s var(--ease), transform .8s var(--ease);
+}
+.fear-row.in-view { opacity: 1; transform: none; }
+/* The two halves land in sequence: question first, answer follows */
+.fear-row__q, .fear-row__a { transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.fear-row:not(.in-view) .fear-row__q { opacity: 0; transform: translateX(-14px); }
+.fear-row:not(.in-view) .fear-row__a { opacity: 0; transform: translateX(14px); }
+.fear-row.in-view .fear-row__q { opacity: 1; transform: none; transition-delay: .1s; }
+.fear-row.in-view .fear-row__a { opacity: 1; transform: none; transition-delay: .28s; }
+@media (prefers-reduced-motion: reduce) {
+  .fear-row, .fear-row__q, .fear-row__a { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
 .fear-row + .fear-row { border-top: 1px solid var(--line); }
 .fear-row__q, .fear-row__a { padding: var(--sp-4); }
 .fear-row__q { background: var(--mist); color: var(--muted); font-style: italic; position: relative; }

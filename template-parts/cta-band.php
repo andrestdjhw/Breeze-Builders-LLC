@@ -2,7 +2,7 @@
 /** Final CTA band. $args: title, lead. @package Breeze */
 $a = wp_parse_args( $args, array(
 	'title' => 'Ready to get it handled?',
-	'lead'  => 'Tell us what your property needs. We\'ll give you a clear, honest estimate — no pressure.',
+	'lead'  => 'Tell us what your property needs. We\'ll give you a clear, honest estimate, no pressure.',
 ) );
 ?>
 <section class="section section--navy cta-band">

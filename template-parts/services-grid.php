@@ -26,7 +26,7 @@ $services = array(
 		'key'   => 'hvac',
 		'title' => 'HVAC',
 		'alt'   => 'HVAC repair and AC replacement for Las Vegas homes',
-		'text'  => 'Repair, replacement, and high-efficiency upgrades built for Las Vegas heat. You get honest repair-vs-replace guidance backed by real numbers — comfort and efficiency, never a scare tactic.',
+		'text'  => 'Repair, replacement, and high-efficiency upgrades built for Las Vegas heat. You get honest repair-vs-replace guidance backed by real numbers: comfort and efficiency, never a scare tactic.',
 		'url'   => '/hvac/',
 		'cta'   => 'See HVAC',
 	),
@@ -44,7 +44,7 @@ $services = array(
 		'key'   => 'general-contractor',
 		'title' => 'General Contracting',
 		'alt'   => 'General contractor managing a multi-trade project in Las Vegas',
-		'text'  => 'One company coordinating the permits, the trades, and the timeline — the single point of accountability that keeps a multi-trade project on schedule and on budget.',
+		'text'  => 'One company coordinating the permits, the trades, and the timeline: the single point of accountability that keeps a multi-trade project on schedule and on budget.',
 		'url'   => '/general-contractor/',
 		'cta'   => 'See general contracting',
 	),
@@ -54,7 +54,7 @@ $services = array(
 	<div class="wrap">
 		<span class="eyebrow">What we do</span>
 		<h2>Four connected services most valley contractors can only subcontract.</h2>
-		<p class="lead" style="max-width:64ch;margin-bottom:2.5rem;">We self-perform remodeling, HVAC, and electrical, and coordinate every trade as your general contractor — so one team is accountable from the first walkthrough to the final inspection.</p>
+		<p class="lead" style="max-width:64ch;margin-bottom:2.5rem;">We self-perform remodeling, HVAC, and electrical, and coordinate every trade as your general contractor, so one team is accountable from the first walkthrough to the final inspection.</p>
 
 		<div class="carousel" data-carousel>
 			<div class="carousel__track" data-carousel-track tabindex="0" role="group" aria-label="Our services">
