@@ -17,13 +17,14 @@ $a = wp_parse_args( $args, array(
 	'video'     => is_front_page() ? breeze_config( 'hero_video' ) : '',
 	'image'     => '',
 	'poster'    => breeze_config( 'hero_poster' ),
+	'pattern'   => false, // true = footer-style stripes + cube lattice background
 ) );
 
 $has_video = ! empty( $a['video'] );
 $has_image = ! $has_video && ! empty( $a['image'] );
 $has_media = $has_video || $has_image;
 ?>
-<section class="hero<?php echo $has_media ? ' hero--media' : ''; ?>">
+<section class="hero<?php echo $has_media ? ' hero--media' : ''; ?><?php echo ( ! $has_media && $a['pattern'] ) ? ' hero--pattern' : ''; ?>">
 	<?php if ( $has_media ) : ?>
 		<div class="hero__bg" aria-hidden="true">
 			<?php if ( $has_video ) : ?>

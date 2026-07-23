@@ -70,45 +70,45 @@ breeze_part( 'proof' );
 	</div>
 </section>
 
+<!-- FAQ -->
 <?php
-breeze_part( 'service-area' );
+breeze_part( 'faq', array(
+	'eyebrow' => 'Common questions',
+	'title'   => 'What homeowners ask before they call.',
+	'items'   => array(
+		array(
+			'q' => 'Are you licensed and insured?',
+			'a' => 'Yes. Breeze Builders holds a Nevada B (General Contractor) and C-2 (Electrical) license and carries General Liability, Workers\' Comp, and Umbrella coverage. The risk of the project stays with us, not you.',
+		),
+		array(
+			'q' => 'Do you really do remodeling, HVAC, and electrical in-house?',
+			'a' => 'We self-perform all three and coordinate them as your general contractor. That means one estimate, one schedule, and one company accountable for the whole job instead of four subcontractors you have to manage.',
+		),
+		array(
+			'q' => 'What areas do you serve?',
+			'a' => 'We serve the entire Las Vegas valley, including Henderson, Las Vegas, North Las Vegas, Summerlin, Green Valley, Anthem, Seven Hills, and Southern Highlands. Extended coverage in California and Arizona is available on a per-project basis.',
+		),
+		array(
+			'q' => 'How fast can you respond, especially for a broken AC?',
+			'a' => 'HVAC failures in Las Vegas heat are emergencies, so we prioritize them. Call us and we\'ll get you a clear answer fast, and if a repair makes more sense than a full replacement, we\'ll tell you that honestly.',
+		),
+		array(
+			'q' => 'Do you handle permits and inspections?',
+			'a' => 'Yes. As a licensed general contractor we pull the permits, build to code, and manage the inspections for you, so your project is documented and done right.',
+		),
+		array(
+			'q' => 'What will my project cost?',
+			'a' => 'Every property is different, so we build your estimate around your actual scope, with a clear price and financing options up front, and no surprises between the estimate and the invoice.',
+		),
+		array(
+			'q' => 'How do I get an estimate?',
+			'a' => 'Call us or send the short form on our contact page. Estimates are free, clear, and pressure-free. We look at your project, explain your options, and give you a straight answer.',
+		),
+	),
+) );
 ?>
 
-<!-- FAQ -->
-<section class="section">
-	<div class="wrap wrap--sm">
-		<span class="eyebrow">Common questions</span>
-		<h2>What homeowners ask before they call.</h2>
-		<div class="faq" style="margin-top:1.5rem;border-top:1px solid var(--line);">
-			<details style="border-bottom:1px solid var(--line);padding:1rem 0;">
-				<summary style="font-weight:600;color:var(--navy);cursor:pointer;font-size:1.05rem;">Are you licensed and insured?</summary>
-				<p style="margin:.7rem 0 0;">Yes. Breeze Builders holds a Nevada B (General Contractor) and C-2 (Electrical) license and carries General Liability, Workers' Comp, and Umbrella coverage. The risk of the project stays with us, not you.</p>
-			</details>
-			<details style="border-bottom:1px solid var(--line);padding:1rem 0;">
-				<summary style="font-weight:600;color:var(--navy);cursor:pointer;font-size:1.05rem;">Do you really do remodeling, HVAC, and electrical in-house?</summary>
-				<p style="margin:.7rem 0 0;">We self-perform all three and coordinate them as your general contractor. That means one estimate, one schedule, and one company accountable for the whole job instead of four subcontractors you have to manage.</p>
-			</details>
-			<details style="border-bottom:1px solid var(--line);padding:1rem 0;">
-				<summary style="font-weight:600;color:var(--navy);cursor:pointer;font-size:1.05rem;">How fast can you respond, especially for a broken AC?</summary>
-				<p style="margin:.7rem 0 0;">HVAC failures in Las Vegas heat are emergencies, so we prioritize them. Call us and we'll get you a clear answer fast, and if a repair makes more sense than a full replacement, we'll tell you that honestly.</p>
-			</details>
-			<details style="border-bottom:1px solid var(--line);padding:1rem 0;">
-				<summary style="font-weight:600;color:var(--navy);cursor:pointer;font-size:1.05rem;">What will my project cost?</summary>
-				<p style="margin:.7rem 0 0;">Every property is different, so we build your estimate around your actual scope, with a clear price and financing options up front, and no surprises between the estimate and the invoice.</p>
-			</details>
-		</div>
-	</div>
-</section>
-
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Are you licensed and insured?","acceptedAnswer":{"@type":"Answer","text":"Breeze Builders holds a Nevada B (General Contractor) and C-2 (Electrical) license and carries General Liability, Workers Comp, and Umbrella coverage. The risk of the project stays with us, not you."}},
-{"@type":"Question","name":"Do you do remodeling, HVAC, and electrical in-house?","acceptedAnswer":{"@type":"Answer","text":"We self-perform all three and coordinate them as your general contractor: one estimate, one schedule, and one company accountable for the whole job."}},
-{"@type":"Question","name":"How fast can you respond for a broken AC?","acceptedAnswer":{"@type":"Answer","text":"HVAC failures in Las Vegas heat are emergencies, so we prioritize them and give honest repair-versus-replace guidance backed by numbers."}},
-{"@type":"Question","name":"What will my project cost?","acceptedAnswer":{"@type":"Answer","text":"Every property is different, so we build your estimate around your actual scope, with a clear price and financing options up front and no surprises between the estimate and the invoice."}}
-]}
-</script>
-
 <?php
+breeze_part( 'service-area' );
 breeze_part( 'cta-band' );
 get_footer();

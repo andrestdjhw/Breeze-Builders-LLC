@@ -7,7 +7,7 @@
  */
 get_header();
 ?>
-<section class="hero" style="padding-block:var(--sp-6);">
+<section class="hero hero--pattern" style="padding-block:var(--sp-6);">
 	<div class="wrap wrap--sm" style="text-align:center;">
 		<span class="eyebrow" style="justify-content:center;">Get a free estimate</span>
 		<h1 style="color:#fff;">Tell us what your property needs.</h1>
@@ -19,7 +19,7 @@ get_header();
 <section class="section">
 	<div class="wrap">
 		<div class="form-grid">
-			<div>
+			<div class="form-card" data-tilt>
 				<!-- TODO #9: replace with Gravity Forms / HubSpot embed. -->
 				<form class="estimate-form" method="post" action="#" novalidate>
 					<div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required></div>

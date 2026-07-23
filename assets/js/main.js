@@ -129,9 +129,9 @@
     }
   }
 
-  // Fear → answer rows — each row reveals as it scrolls into view,
+  // Fear → answer rows and FAQ items — each reveals as it scrolls into view,
   // and resets when it leaves so the effect replays in both directions
-  var fearRows = document.querySelectorAll('.fear-row');
+  var fearRows = document.querySelectorAll('.fear-row, .faq-item, [data-reveal]');
   if (fearRows.length) {
     if ('IntersectionObserver' in window) {
       var rowObserver = new IntersectionObserver(function (entries) {
@@ -143,6 +143,39 @@
     } else {
       fearRows.forEach(function (r) { r.classList.add('in-view'); });
     }
+  }
+
+  // 3D tilt cards — subtle perspective tilt following the pointer ([data-tilt])
+  var tiltReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var tiltFine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+  if (!tiltReduce && tiltFine) {
+    document.querySelectorAll('[data-tilt]').forEach(function (card) {
+      var MAX = 3.5; // degrees — keep it classy
+      var rafId = null;
+
+      function onMove(e) {
+        if (rafId) { return; }
+        rafId = window.requestAnimationFrame(function () {
+          var r = card.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width - 0.5;   // -0.5 … 0.5
+          var py = (e.clientY - r.top) / r.height - 0.5;
+          card.classList.add('is-tilting');
+          card.style.transform =
+            'rotateX(' + (-py * MAX).toFixed(2) + 'deg) ' +
+            'rotateY(' + (px * MAX).toFixed(2) + 'deg) ' +
+            'translateZ(6px)';
+          rafId = null;
+        });
+      }
+
+      function onLeave() {
+        card.classList.remove('is-tilting');
+        card.style.transform = '';
+      }
+
+      card.addEventListener('pointermove', onMove);
+      card.addEventListener('pointerleave', onLeave);
+    });
   }
 
   // Scroll behavior: hide top utility bar on scroll down / show on scroll up,

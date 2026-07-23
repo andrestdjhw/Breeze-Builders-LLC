@@ -11,6 +11,7 @@ breeze_part( 'hero', array(
 	'title'   => 'The contractor that does what most only subcontract.',
 	'lead'    => 'Breeze Builders was built to be the one company a homeowner can trust with the whole property, not four separate specialists hoping they coordinate.',
 	'media_note' => 'Team photo / fleet (TODO #3)',
+	'pattern'    => true,
 ) );
 ?>
 <section class="section">
