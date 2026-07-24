@@ -1,23 +1,25 @@
 /* ==========================================================================
    Breeze Builders — Design Tokens
-   Palette + type derived from the 828 strategic brief (navy + gold).
-   Confirm exact brand HEX before launch (TODO #1).
+   Brand palette "El Plano Maestro" (client-approved):
+   MIDNIGHT #0C3A59 · EMBER #D84545 · SAND #DDD0C0 · SLATE #575859 · BREEZE #D3E3F0 · UMBER #3D0606
+   Token names keep the original navy/gold naming so components stay stable.
    ========================================================================== */
 
 :root {
-  /* --- Color (828 approved branding — confirm HEX with client, TODO #1) --- */
-  --navy:        #14213d;   /* midnight blue — trust/authority: heroes, footer, bands */
-  --navy-700:    #0a3d62;   /* deep blue — raised panels / cards on dark */
-  --navy-900:    #0d1730;   /* deepest */
-  --gold:        #c8863c;   /* warm amber — single accent (desert warmth) */
-  --gold-600:    #a86e2d;   /* amber hover / text-on-light */
-  --ink:         #1c2430;   /* body text on light */
-  --muted:       #6c7a89;   /* steel grey — secondary text */
-  --line:        #dde3ea;   /* hairlines on light */
-  --paper:       #ffffff;   /* clarity / clean */
-  --mist:        #f2f5f8;   /* alt light section */
-  --on-dark:     #eef2f8;   /* body text on navy */
-  --on-dark-dim: #aeb9c9;   /* secondary text on navy */
+  /* --- Color --- */
+  --navy:        #0c3a59;   /* MIDNIGHT — primary: heroes, footer, bands */
+  --navy-700:    #124a72;   /* midnight raised — panels / cards on dark */
+  --navy-900:    #072940;   /* midnight deep — footer base, gradients */
+  --gold:        #d84545;   /* EMBER — single accent: decision points, CTAs, icons */
+  --gold-600:    #a93232;   /* ember deep — hover / accent text on light */
+  --umber:       #3d0606;   /* UMBER — reserved deep support tone */
+  --ink:         #26282a;   /* body text on light (slate-black) */
+  --muted:       #575859;   /* SLATE — secondary text */
+  --line:        #e5ddd1;   /* sand-tinted hairlines on light */
+  --paper:       #ffffff;   /* light section base */
+  --mist:        #f6f1ea;   /* SAND tint — alt light sections (domestic warmth) */
+  --on-dark:     #dce9f4;   /* BREEZE — body text on midnight (the calm note) */
+  --on-dark-dim: #a7c0d4;   /* breeze dim — secondary text on midnight */
 
   /* --- Type --- */
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -53,8 +55,8 @@
   --radius:    6px;
   --radius-lg: 10px;
 
-  --shadow-sm: 0 1px 2px rgba(15, 32, 56, 0.06), 0 2px 8px rgba(15, 32, 56, 0.05);
-  --shadow-md: 0 8px 30px rgba(15, 32, 56, 0.10);
+  --shadow-sm: 0 1px 2px rgba(7, 41, 64, 0.06), 0 2px 8px rgba(7, 41, 64, 0.05);
+  --shadow-md: 0 8px 30px rgba(7, 41, 64, 0.10);
 
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }

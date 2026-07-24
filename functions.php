@@ -56,6 +56,7 @@ add_action( 'wp_enqueue_scripts', 'breeze_assets' );
 function breeze_config( $key = null ) {
 	$config = array(
 		'brand'         => 'Breeze Builders',           // legal: Breeze Builders LLC; DBA "Breeze Builders GC" — confirm lockup (open item #6)
+		// Palette "El Plano Maestro" (confirmed): MIDNIGHT #0C3A59 · EMBER #D84545 · SAND #DDD0C0 · SLATE #575859 · BREEZE #D3E3F0 · UMBER #3D0606
 		'phone_display' => '(702) 491-4767',            // confirm as primary NAP line (#2)
 		'phone_href'    => '+17024914767',
 		'email'         => 'info@breezebuildersgc.com', // owner/business email pending (open item #1)

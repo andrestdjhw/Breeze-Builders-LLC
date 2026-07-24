@@ -182,15 +182,26 @@
   // and reveal the floating "Call us now" button once scrolled down the page.
   var header = document.querySelector('.site-header');
   var fab = document.querySelector('.call-fab');
-  if (header || fab) {
+  var toTop = document.querySelector('.to-top');
+  if (toTop) {
+    toTop.addEventListener('click', function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+  if (header || fab || toTop) {
     var lastY = 0, ticking = false;
     function onScroll() {
       var y = window.pageYOffset || document.documentElement.scrollTop || 0;
 
-      // Floating call button: visible after scrolling down past the hero
+      // Floating buttons: visible after scrolling down past the hero
       if (fab) {
         if (y > 300) { fab.classList.add('is-visible'); }
         else { fab.classList.remove('is-visible'); }
+      }
+      if (toTop) {
+        if (y > 600) { toTop.classList.add('is-visible'); }
+        else { toTop.classList.remove('is-visible'); }
       }
 
       // Top utility bar: hide on scroll down, show on scroll up (masthead stays sticky)
