@@ -13,8 +13,8 @@ $phone_href    = breeze_config( 'phone_href' );
 	<div class="wrap">
 		<div class="footer-grid">
 			<div>
-				<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:#fff;margin-bottom:1rem;">
-					<span class="brand__mark">B</span><span>Breeze Builders</span>
+				<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="margin-bottom:1rem;">
+					<img class="brand__logo brand__logo--footer" src="<?php echo esc_url( content_url( breeze_config( 'logo' ) ) ); ?>" alt="<?php echo esc_attr( breeze_config( 'brand' ) ); ?>" loading="lazy" decoding="async">
 				</a>
 				<p>One licensed, insured team for remodeling, HVAC, and electrical across Las Vegas, Henderson &amp; North Las Vegas. One company. One responsibility.</p>
 				<p><?php echo esc_html( breeze_config( 'license' ) ); ?> &middot; <?php echo esc_html( breeze_config( 'insured' ) ); ?></p>

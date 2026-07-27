@@ -37,8 +37,7 @@ $phone_href    = breeze_config( 'phone_href' );
 	<div class="masthead">
 		<div class="wrap">
 			<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<span class="brand__mark">B</span>
-				<span>Breeze Builders</span>
+				<img class="brand__logo" src="<?php echo esc_url( content_url( breeze_config( 'logo' ) ) ); ?>" alt="<?php echo esc_attr( breeze_config( 'brand' ) ); ?>" decoding="async">
 			</a>
 
 			<nav class="nav" aria-label="Primary">

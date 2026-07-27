@@ -68,6 +68,7 @@ function breeze_config( $key = null ) {
 		'cities'        => array( 'Henderson', 'Las Vegas', 'North Las Vegas', 'Summerlin', 'Green Valley', 'Anthem', 'Seven Hills', 'Southern Highlands' ),
 		'extended'      => 'California · Arizona (by project)', // confirm CSLB/ROC + cities before publishing (#3/#10)
 		'domain'        => 'breezebuildersgc.com',
+		'logo'          => '/uploads/2026/07/BB_Imagotipo-scaled.png', // brand imagotipo (relative to /wp-content/)
 		// Hero background video — path relative to /wp-content/ (works on local + production).
 		'hero_video'    => '/uploads/2026/07/blured-handyman-give-you-screwdriver-in-blue-studi-2025-12-17-05-38-55-utc.mp4',
 		'hero_poster'   => '', // optional: first-frame image for faster paint / reduced-motion fallback

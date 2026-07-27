@@ -55,8 +55,9 @@ $services = array(
 		<span class="eyebrow">What we do</span>
 		<h2>Four connected services most valley contractors can only subcontract.</h2>
 		<p class="lead" style="max-width:64ch;margin-bottom:2.5rem;">We self-perform remodeling, HVAC, and electrical, and coordinate every trade as your general contractor, so one team is accountable from the first walkthrough to the final inspection.</p>
+	</div>
 
-		<div class="carousel" data-carousel>
+	<div class="carousel" data-carousel>
 			<div class="carousel__track" data-carousel-track tabindex="0" role="group" aria-label="Our services">
 				<?php
 				// Rendered twice (second copy aria-hidden) so the continuous
@@ -92,6 +93,5 @@ $services = array(
 			<button class="carousel__btn carousel__btn--next" type="button" data-carousel-next aria-label="Next services">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
 			</button>
-		</div>
 	</div>
 </section>

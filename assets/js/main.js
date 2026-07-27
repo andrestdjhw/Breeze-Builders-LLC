@@ -66,18 +66,27 @@
     var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) { return; }
 
-    // --- Continuous scroll ------------------------------------------------
-    var SPEED = 42;          // pixels per second — matches the trust bar's calm pace
+    // --- Continuous marquee drift (seamless loop; cards fade at screen edges) ---
+    // NOTE: some browsers (Safari) truncate scrollLeft to integers, so a
+    // sub-pixel per-frame increment gets lost and the drift never moves.
+    // We accumulate the position in a float and assign it each frame.
+    var SPEED = 42;          // pixels per second
     var RESUME_AFTER = 2000; // ms of stillness before motion picks back up
     var last = null, raf = null, paused = false, inView = true, idle = null;
+    var pos = null; // float source of truth for the drift position
 
     function frame(ts) {
-      if (last === null) { last = ts; }
+      if (last === null) { last = ts; pos = track.scrollLeft; }
       var dt = ts - last;
       last = ts;
       if (!paused && inView && !document.hidden) {
-        track.scrollLeft += SPEED * (dt / 1000);
-        wrap();
+        pos += SPEED * (dt / 1000);
+        var c = cycle();
+        if (c > 0) {
+          if (pos >= c) { pos -= c; }
+          else if (pos < 0) { pos += c; }
+        }
+        track.scrollLeft = pos;
       }
       raf = window.requestAnimationFrame(frame);
     }
@@ -85,7 +94,7 @@
     function play() { if (!raf) { last = null; raf = window.requestAnimationFrame(frame); } }
     function stop() { if (raf) { window.cancelAnimationFrame(raf); raf = null; } }
     function pause() { paused = true; }
-    function resume() { paused = false; last = null; }
+    function resume() { if (paused) { paused = false; last = null; } }
 
     // Pause while the visitor reads or interacts
     root.addEventListener('mouseenter', pause);

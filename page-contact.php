@@ -39,7 +39,7 @@ get_header();
 			<aside>
 				<h3>Why homeowners call us</h3>
 				<ul class="ticks">
-					<li>Licensed B + C-2 · fully insured</li>
+					<li>Licensed B + C-2 &middot; fully insured</li>
 					<li>We answer fast: the sooner we talk, the sooner it's handled</li>
 					<li>Financing available: pre-qualify without affecting your credit</li>
 				</ul>
@@ -47,6 +47,16 @@ get_header();
 					<h3 style="color:#fff;">AC emergency?</h3>
 					<p>Don't wait on a form.</p>
 					<a class="btn btn--gold" href="tel:<?php echo esc_attr( breeze_config( 'phone_href' ) ); ?>">Call <?php echo esc_html( breeze_config( 'phone_display' ) ); ?></a>
+				</div>
+
+				<div class="map-embed" style="margin-top:1.5rem;">
+					<iframe
+						src="https://www.google.com/maps?q=<?php echo esc_attr( rawurlencode( breeze_config( 'address' ) ) ); ?>&amp;output=embed"
+						title="Breeze Builders &mdash; <?php echo esc_attr( breeze_config( 'address' ) ); ?>"
+						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
+						allowfullscreen
+					></iframe>
 				</div>
 			</aside>
 		</div>
