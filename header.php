@@ -1,6 +1,6 @@
 <?php
 /**
- * Header — utility trust bar + masthead nav.
+ * Header — midnight utility bar (phone · licenses · social) + white masthead.
  *
  * @package Breeze
  */
@@ -54,12 +54,13 @@ $phone_href    = breeze_config( 'phone_href' );
 					) );
 				} else {
 					// Scaffold fallback so the theme renders before menus are assigned.
+					// About leads the list per client direction.
 					echo '<ul class="nav-menu">';
+					echo '<li><a href="' . esc_url( home_url( '/about/' ) ) . '">About</a></li>';
 					echo '<li><a href="' . esc_url( home_url( '/remodeling/' ) ) . '">Remodeling</a></li>';
 					echo '<li><a href="' . esc_url( home_url( '/hvac/' ) ) . '">HVAC</a></li>';
 					echo '<li><a href="' . esc_url( home_url( '/electrical/' ) ) . '">Electrical</a></li>';
 					echo '<li><a href="' . esc_url( home_url( '/general-contractor/' ) ) . '">General Contracting</a></li>';
-					echo '<li><a href="' . esc_url( home_url( '/about/' ) ) . '">About</a></li>';
 					echo '</ul>';
 				}
 				?>

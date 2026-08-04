@@ -204,6 +204,24 @@ p  { margin: 0 0 var(--sp-3); }
   .hero--media { padding-block: var(--sp-7) var(--sp-6); }
   .hero__scrim { background: linear-gradient(180deg, rgba(7,41,64,.80) 0%, rgba(7,41,64,.72) 55%, rgba(7,41,64,.88) 100%); }
 }
+
+.is-home .hero--media {
+  min-height: calc(100vh - 172px);          /* fallback */
+  min-height: calc(100svh - 172px);         /* small-viewport units: stable on mobile */
+  display: grid;
+  align-items: center;
+  padding-block: var(--sp-6);
+}
+
+/* Mobile: the sticky bottom call bar overlaps the viewport, keep it breathable */
+@media (max-width: 720px) {
+  .is-home .hero--media {
+    min-height: calc(100svh - 160px);
+  }
+}
+
+
+
 /* Reduced motion: drop the moving video, keep the navy field (images are static, so they stay) */
 @media (prefers-reduced-motion: reduce) {
   video.hero__media-el { display: none; }
