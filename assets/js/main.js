@@ -13,6 +13,33 @@
     });
   }
 
+  // Services mega menu — hover (with a short close delay so the pointer can travel
+  // into the panel) on desktop, click/tap everywhere, Escape and outside-click close.
+  document.querySelectorAll('[data-mega]').forEach(function (item) {
+    var btn = item.querySelector('.mega-toggle');
+    var closeTimer = null;
+    var desktop = window.matchMedia('(min-width: 901px)');
+    function setOpen(open) {
+      window.clearTimeout(closeTimer);
+      item.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    btn.addEventListener('click', function () { setOpen(!item.classList.contains('is-open')); });
+    item.addEventListener('mouseenter', function () { if (desktop.matches) { setOpen(true); } });
+    item.addEventListener('mouseleave', function () {
+      if (desktop.matches) { closeTimer = window.setTimeout(function () { setOpen(false); }, 180); }
+    });
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && item.classList.contains('is-open')) { setOpen(false); btn.focus(); }
+    });
+    item.addEventListener('focusout', function (e) {
+      if (desktop.matches && !item.contains(e.relatedTarget)) { setOpen(false); }
+    });
+    document.addEventListener('click', function (e) {
+      if (desktop.matches && !item.contains(e.target)) { setOpen(false); }
+    });
+  });
+
   // Footer year
   var y = document.querySelector('[data-year]');
   if (y) { y.textContent = new Date().getFullYear(); }
@@ -39,19 +66,22 @@
     var next = root.querySelector('[data-carousel-next]');
     if (!track) { return; }
 
-    function step() {
+    // Card step and loop width are measured once (and on resize), never per frame:
+    // reading layout inside the animation loop forced a reflow every frame.
+    var stepW = 0, cycleW = 0;
+    function measure() {
       var card = track.querySelector('.scard');
-      if (!card) { return track.clientWidth; }
+      if (!card) { stepW = track.clientWidth; cycleW = 0; return; }
       var styles = window.getComputedStyle(track);
       var gap = parseFloat(styles.columnGap || styles.gap) || 0;
-      return card.getBoundingClientRect().width + gap;
+      stepW = card.getBoundingClientRect().width + gap;
+      cycleW = track.querySelectorAll('.scard:not([aria-hidden="true"])').length * stepW;
     }
-
+    measure();
+    window.addEventListener('resize', measure);
+    function step() { return stepW; }
     // Width of one full set of cards — the point where we wrap around.
-    function cycle() {
-      var originals = track.querySelectorAll('.scard:not([aria-hidden="true"])').length;
-      return originals * step();
-    }
+    function cycle() { return cycleW; }
 
     function wrap() {
       var c = cycle();
@@ -154,6 +184,36 @@
     }
   }
 
+  // General scroll reveal — section headings, copy and grid items rise in once,
+  // siblings staggered. Blocks with their own choreography (book, fear rows,
+  // FAQ, carousel, [data-reveal]) are left alone.
+  var motionOK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  if (motionOK && 'IntersectionObserver' in window) {
+    var revealSel = [
+      '.section .wrap > .eyebrow', '.section .wrap > h2', '.section .wrap > p',
+      '.section .wrap > .btn-row', '.cards > *', '.proof-grid > *', '.split > *',
+      '.finance > *', '.form-grid > *', '.footer-grid > *', '.chips-marquee', '.intro-split > *', '.lead-map > *'
+    ].join(',');
+    var skip = '[data-book], [data-reveal], .fear-list, .faq, .carousel';
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll(revealSel).forEach(function (el) {
+      if (el.matches(skip) || el.parentElement.closest(skip)) { return; }
+      // Stagger by position among revealed siblings (capped so long lists don't lag)
+      var i = 0, sib = el.previousElementSibling;
+      while (sib) { if (sib.classList.contains('rv')) { i++; } sib = sib.previousElementSibling; }
+      el.style.setProperty('--rv-i', Math.min(i, 5));
+      el.classList.add('rv');
+      revealObserver.observe(el);
+    });
+  }
+
   // 3D tilt cards — subtle perspective tilt following the pointer ([data-tilt])
   var tiltReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var tiltFine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
@@ -215,6 +275,7 @@
 
       // Top utility bar: hide on scroll down, show on scroll up (masthead stays sticky)
       if (header) {
+        header.classList.toggle('is-scrolled', y > 10);
         if (y <= 40) {
           header.classList.remove('nav-up');           // always show near the top
         } else if (Math.abs(y - lastY) > 8) {           // ignore tiny jitters
@@ -229,5 +290,6 @@
     window.addEventListener('scroll', function () {
       if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
     }, { passive: true });
+    onScroll();
   }
 })();

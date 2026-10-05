@@ -71,7 +71,12 @@ breeze_part( 'hero', array(
 <?php endif; ?>
 <?php
 if ( ! empty( $a['faqs'] ) ) {
-	breeze_part( 'faq', array( 'items' => $a['faqs'] ) );
+	breeze_part( 'faq', array(
+		'eyebrow' => $a['eyebrow'] . ' FAQs',
+		'title'   => $a['eyebrow'] . ' questions, answered.',
+		'items'   => $a['faqs'],
+		'more'    => true,
+	) );
 }
 breeze_part( 'service-area' );
 breeze_part( 'cta-band' );

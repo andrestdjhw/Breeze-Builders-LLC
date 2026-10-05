@@ -3,7 +3,9 @@
  * FAQ — reusable accordion + auto-generated FAQPage JSON-LD.
  * $args:
  *   eyebrow (string), title (string),
- *   items (array of [ 'q' => question, 'a' => answer ]).
+ *   items (array of [ 'q' => question, 'a' => answer ]),
+ *   id (optional section anchor), schema (bool, default true — the FAQs page emits one combined schema instead),
+ *   more (bool) — adds a "See all FAQs" link to the FAQs page.
  * Schema is built from the same array, so markup and rich results never drift.
  * @package Breeze
  */
@@ -11,6 +13,9 @@ $a = wp_parse_args( $args, array(
 	'eyebrow' => 'Common questions',
 	'title'   => 'What homeowners ask before they call.',
 	'items'   => array(),
+	'id'      => '',
+	'schema'  => true,
+	'more'    => false,
 ) );
 
 if ( empty( $a['items'] ) ) {
@@ -34,7 +39,7 @@ $schema = array(
 	'mainEntity' => $schema_entities,
 );
 ?>
-<section class="section">
+<section class="section"<?php echo $a['id'] ? ' id="' . esc_attr( $a['id'] ) . '"' : ''; ?>>
 	<div class="wrap wrap--sm">
 		<span class="eyebrow"><?php echo esc_html( $a['eyebrow'] ); ?></span>
 		<h2><?php echo esc_html( $a['title'] ); ?></h2>
@@ -51,6 +56,11 @@ $schema = array(
 				</details>
 			<?php endforeach; ?>
 		</div>
+		<?php if ( $a['more'] ) : ?>
+			<a class="card__link faq__more" href="<?php echo esc_url( breeze_page_url( 'faqs' ) ); ?>">See all FAQs <span class="card__arrow" aria-hidden="true">&rarr;</span></a>
+		<?php endif; ?>
 	</div>
 </section>
+<?php if ( $a['schema'] ) : ?>
 <script type="application/ld+json"><?php echo wp_json_encode( $schema ); ?></script>
+<?php endif; ?>

@@ -4,51 +4,7 @@
  * Cards reuse the same photos as each service page hero.
  * @package Breeze
  */
-$icons = array(
-	'home'  => '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
-	'wind'  => '<path d="M4 8h12a3 3 0 100-6"/><path d="M2 12h18a3 3 0 110 6"/><path d="M4 16h9a2 2 0 110 4"/>',
-	'bolt'  => '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
-	'grid'  => '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
-);
-
-$services = array(
-	array(
-		'icon'  => 'home',
-		'key'   => 'remodeling',
-		'title' => 'Remodeling',
-		'alt'   => 'Kitchen and bathroom remodeling in the Las Vegas valley',
-		'text'  => 'Kitchens, baths, additions, and whole-home renovations that protect and raise your property\'s value. We handle design, structure, systems, and finish under one roof, so your remodel never stalls waiting on an outside trade.',
-		'url'   => '/remodeling/',
-		'cta'   => 'Explore remodeling',
-	),
-	array(
-		'icon'  => 'wind',
-		'key'   => 'hvac',
-		'title' => 'HVAC',
-		'alt'   => 'HVAC repair and AC replacement for Las Vegas homes',
-		'text'  => 'Repair, replacement, and high-efficiency upgrades built for Las Vegas heat. You get honest repair-vs-replace guidance backed by real numbers: comfort and efficiency, never a scare tactic.',
-		'url'   => '/hvac/',
-		'cta'   => 'See HVAC',
-	),
-	array(
-		'icon'  => 'bolt',
-		'key'   => 'electrical',
-		'title' => 'Electrical',
-		'alt'   => 'Licensed electrical panel and wiring work in Henderson, NV',
-		'text'  => 'Panel upgrades, wiring, EV chargers, lighting, and safety work, done to code by a C-2 licensed team. Because we self-perform electrical, your critical systems never get handed to an unknown subcontractor.',
-		'url'   => '/electrical/',
-		'cta'   => 'See electrical',
-	),
-	array(
-		'icon'  => 'grid',
-		'key'   => 'general-contractor',
-		'title' => 'General Contracting',
-		'alt'   => 'General contractor managing a multi-trade project in Las Vegas',
-		'text'  => 'One company coordinating the permits, the trades, and the timeline: the single point of accountability that keeps a multi-trade project on schedule and on budget.',
-		'url'   => '/general-contractor/',
-		'cta'   => 'See general contracting',
-	),
-);
+$services = breeze_services();
 ?>
 <section class="section section--mist">
 	<div class="wrap">
@@ -69,16 +25,17 @@ $services = array(
 					<article class="scard"<?php echo $copy ? ' aria-hidden="true" tabindex="-1"' : ''; ?>>
 						<div class="scard__media">
 							<?php if ( $img ) : ?>
-								<img src="<?php echo esc_url( content_url( $img ) ); ?>" alt="<?php echo esc_attr( $s['alt'] ); ?>" loading="lazy" decoding="async">
+								<?php $set = breeze_image_set( $img ); ?>
+								<img src="<?php echo esc_url( $set['src'] ); ?>"<?php if ( $set['srcset'] ) : ?> srcset="<?php echo esc_attr( $set['srcset'] ); ?>" sizes="(max-width: 620px) 85vw, (max-width: 900px) 50vw, 390px"<?php endif; ?> alt="<?php echo esc_attr( $s['alt'] ); ?>" loading="lazy" decoding="async">
 							<?php endif; ?>
 							<span class="scard__icon">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><?php echo $icons[ $s['icon'] ]; // phpcs:ignore -- static inline icon markup ?></svg>
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><?php echo breeze_service_icon( $s['icon'] ); // phpcs:ignore -- static inline icon markup ?></svg>
 							</span>
 						</div>
 						<div class="scard__body">
 							<h3><?php echo esc_html( $s['title'] ); ?></h3>
 							<p><?php echo esc_html( $s['text'] ); ?></p>
-							<a class="card__link" href="<?php echo esc_url( home_url( $s['url'] ) ); ?>"><?php echo esc_html( $s['cta'] ); ?> &rarr;</a>
+							<a class="card__link" href="<?php echo esc_url( home_url( $s['url'] ) ); ?>"><?php echo esc_html( $s['cta'] ); ?> <span class="card__arrow" aria-hidden="true">&rarr;</span></a>
 						</div>
 					</article>
 					<?php

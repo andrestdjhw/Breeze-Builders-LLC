@@ -2,8 +2,8 @@
 /**
  * Template Name: Contact / Get Estimate
  * @package Breeze
- * NOTE: form markup is scaffold only. Wire to Gravity Forms / WPForms / HubSpot
- * before launch (TODO #9). Do not collect leads on the placeholder action.
+ * The form (template-parts/estimate-form.php) stores each request as a Lead in
+ * wp-admin and emails breeze_config('email') — confirm that address before launch (#9).
  */
 get_header();
 ?>
@@ -19,22 +19,8 @@ get_header();
 <section class="section">
 	<div class="wrap">
 		<div class="form-grid">
-			<div class="form-card" data-tilt>
-				<!-- TODO #9: replace with Gravity Forms / HubSpot embed. -->
-				<form class="estimate-form" method="post" action="#" novalidate>
-					<div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required></div>
-					<div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" required></div>
-					<div class="field"><label for="email">Email</label><input id="email" name="email" type="email"></div>
-					<div class="field"><label for="service">Service needed</label>
-						<select id="service" name="service">
-							<option>Remodeling</option><option>HVAC</option><option>Electrical</option>
-							<option>General Contracting</option><option>Commercial</option><option>Not sure yet</option>
-						</select>
-					</div>
-					<div class="field"><label for="city">City or ZIP</label><input id="city" name="city" type="text"></div>
-					<div class="field"><label for="details">Project details</label><textarea id="details" name="details"></textarea></div>
-					<button class="btn btn--gold btn--lg" type="submit">Request My Estimate</button>
-				</form>
+			<div class="form-card" id="estimate" data-tilt>
+				<?php breeze_part( 'estimate-form', array( 'prefix' => 'contact', 'anchor' => 'estimate' ) ); ?>
 			</div>
 			<aside>
 				<h3>Why homeowners call us</h3>

@@ -14,7 +14,7 @@ breeze_part( 'hero', array(
 	'pattern'    => true,
 ) );
 ?>
-<section class="section">
+<section class="section section--pattern">
 	<div class="wrap wrap--sm">
 		<span class="eyebrow">Who we are</span>
 		<h2>Structure most small contractors don't have.</h2>

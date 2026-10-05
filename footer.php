@@ -47,7 +47,12 @@ $phone_href    = breeze_config( 'phone_href' );
 
 		<div class="footer-bottom">
 			<span>&copy; <span data-year>2026</span> Breeze Builders LLC. All rights reserved.</span>
-			<span>Site by 828 Marketing Solutions</span>
+			<nav class="footer-legal" aria-label="Legal">
+				<?php foreach ( breeze_legal_pages() as $slug => $page ) : ?>
+					<a href="<?php echo esc_url( breeze_page_url( $slug ) ); ?>"><?php echo esc_html( $page[0] ); ?></a>
+				<?php endforeach; ?>
+			</nav>
+			<span>Site by <a href="https://828marketingsolutions.com" target="_blank" rel="noopener">828 Marketing Solutions</a></span>
 		</div>
 	</div>
 </footer>
