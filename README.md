@@ -32,12 +32,12 @@ Asset versioning via `filemtime()` (828 convention). Vanilla JS only (mobile nav
 - `template-*.php` — the 4 service pages (thin; content lives in the template, layout in `service-page` part).
 
 ## Populated from the 828 Client Profile
-NAP is now live in `breeze_config()`: phone **(702) 491-4767**, HQ **871 Coronado Center Drive, Suite 200, Henderson, NV 89052**, domain **breezebuildersgc.com**, extended coverage **CA · AZ (by project)**. LocalBusiness schema anchors NV only.
+NAP is now live in `breeze_config()`: phone **(725) 324-5441**, HQ **871 Coronado Center Drive, Suite 200, Henderson, NV 89052**, domain **breezebuildersgc.com**, extended coverage **CA · AZ (by project)**. LocalBusiness schema anchors NV only.
 
 ## Before launch — open items (confirm with client)
 Grep the theme for `TODO`. Still pending confirmation:
 - **#1** exact brand HEX (values in place, approved-branding) + logo → `tokens.css`, `.brand__mark` in `header.php`
-- **#2** confirm (702) 491-4767 as primary NAP line
+- **#2** ~~confirm primary NAP line~~ confirmed by client: (725) 324-5441
 - **#3** real photos (before/after, team, fleet) → `assets/img/`
 - **#4** live Google reviews embed + count → `trust-strip.php`, `proof.php`
 - **#5** confirm price ranges → `template-remodeling.php`

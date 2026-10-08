@@ -9,8 +9,8 @@ get_header();
 
 breeze_part( 'hero', array(
 	'eyebrow'   => 'Licensed Las Vegas Contractor',
-	// H1 leads with the city + the three trades people search for; the brand line is the accent.
-	'title'     => 'Las Vegas remodeling, HVAC & electrical. *One team.*',
+	// Client-approved slogan (2026-10-08). "Las Vegas" stays in the eyebrow for local SEO.
+	'title'     => 'Your *one‑stop solution* for residential and commercial properties.', // U+2011 non-breaking hyphen keeps "one-stop" on one line
 	'lead'      => 'One crew and one estimate, accountable through final inspection.',
 	'primary'   => array( 'label' => 'Get a Free Estimate', 'url' => home_url( '/contact/' ) ),
 	'secondary' => array( 'label' => 'AC out? Call now', 'url' => 'tel:' . breeze_config( 'phone_href' ) ),
