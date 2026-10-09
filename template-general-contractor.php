@@ -8,6 +8,7 @@ breeze_part( 'service-page', array(
 	'eyebrow' => 'General Contracting',
 	'image'   => breeze_hero_image( 'general-contractor' ),
 	'faqs'    => breeze_faqs( 'general-contractor' ),
+	'gallery' => array( 'progress', 'exteriors' ),
 	'title'   => 'One company. One contract. Every trade under control.',
 	'lead'    => 'Most projects need more than one trade. Breeze Builders is the general contractor that self-performs remodeling, HVAC, and electrical, so you get one team, one responsibility, and one clean result.',
 	'intro_head' => 'The multi-trade advantage',

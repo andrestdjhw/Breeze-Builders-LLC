@@ -33,5 +33,11 @@ breeze_part( 'hero', array(
 	</div>
 </section>
 <?php
+breeze_part( 'projects', array(
+	'eyebrow' => 'Our work',
+	'title'   => 'Finished projects and the work behind them.',
+	'lead'    => 'Kitchens, baths, living spaces, and exteriors, plus the framing, demo, and rough-in our own crews self-perform along the way.',
+	'filters' => true,
+) );
 breeze_part( 'cta-band', array( 'title' => 'Meet the team behind your project.', 'lead' => 'Get a clear, honest estimate from a licensed, insured team.' ) );
 get_footer();

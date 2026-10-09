@@ -33,12 +33,12 @@ $notes  = array(
 	</div>
 
 	<div class="field-row">
-		<div class="field"><label for="<?php echo esc_attr( $p ); ?>-name">Name</label><input id="<?php echo esc_attr( $p ); ?>-name" name="name" type="text" autocomplete="name" required></div>
-		<div class="field"><label for="<?php echo esc_attr( $p ); ?>-phone">Phone</label><input id="<?php echo esc_attr( $p ); ?>-phone" name="phone" type="tel" autocomplete="tel" required></div>
+		<div class="field"><label for="<?php echo esc_attr( $p ); ?>-name">Name <span class="req" aria-hidden="true">*</span></label><input id="<?php echo esc_attr( $p ); ?>-name" name="name" type="text" autocomplete="name" placeholder="Jane Smith" required></div>
+		<div class="field"><label for="<?php echo esc_attr( $p ); ?>-phone">Phone <span class="req" aria-hidden="true">*</span></label><input id="<?php echo esc_attr( $p ); ?>-phone" name="phone" type="tel" autocomplete="tel" placeholder="(725) 555-0123" required></div>
 	</div>
 	<div class="field-row">
-		<div class="field"><label for="<?php echo esc_attr( $p ); ?>-email">Email</label><input id="<?php echo esc_attr( $p ); ?>-email" name="email" type="email" autocomplete="email"></div>
-		<div class="field"><label for="<?php echo esc_attr( $p ); ?>-city">City or ZIP</label><input id="<?php echo esc_attr( $p ); ?>-city" name="city" type="text" autocomplete="postal-code"></div>
+		<div class="field"><label for="<?php echo esc_attr( $p ); ?>-email">Email</label><input id="<?php echo esc_attr( $p ); ?>-email" name="email" type="email" autocomplete="email" placeholder="you@email.com"></div>
+		<div class="field"><label for="<?php echo esc_attr( $p ); ?>-city">City or ZIP</label><input id="<?php echo esc_attr( $p ); ?>-city" name="city" type="text" autocomplete="postal-code" placeholder="Henderson or 89052"></div>
 	</div>
 	<div class="field"><label for="<?php echo esc_attr( $p ); ?>-service">Service needed</label>
 		<select id="<?php echo esc_attr( $p ); ?>-service" name="service">
@@ -46,6 +46,10 @@ $notes  = array(
 			<option>General Contracting</option><option>Commercial</option><option>Not sure yet</option>
 		</select>
 	</div>
-	<div class="field"><label for="<?php echo esc_attr( $p ); ?>-details">Project details</label><textarea id="<?php echo esc_attr( $p ); ?>-details" name="details"></textarea></div>
-	<button class="btn btn--gold btn--lg" type="submit"><?php echo esc_html( $a['submit'] ); ?></button>
+	<div class="field"><label for="<?php echo esc_attr( $p ); ?>-details">Project details</label><textarea id="<?php echo esc_attr( $p ); ?>-details" name="details" placeholder="What would you like done, and when? Anything we should know about the property?"></textarea></div>
+	<button class="btn btn--gold btn--lg estimate-form__submit" type="submit"><?php echo esc_html( $a['submit'] ); ?></button>
+	<p class="estimate-form__note">
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+		<span>Free, no-obligation estimate. By sending, you agree we may call or text you about your request. See our <a href="<?php echo esc_url( breeze_page_url( 'privacy-policy' ) ); ?>">Privacy Policy</a>.</span>
+	</p>
 </form>

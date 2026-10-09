@@ -70,6 +70,14 @@ breeze_part( 'hero', array(
 <?php
 breeze_part( 'fear-answer' );
 breeze_part( 'proof' );
+breeze_part( 'projects', array(
+	'eyebrow' => 'Recent projects',
+	'title'   => 'Work we\'re proud to put our name on.',
+	'cats'    => array( 'kitchens', 'bathrooms', 'interiors', 'exteriors' ),
+	'limit'   => 8,
+	'more'    => true,
+	'mist'    => true,
+) );
 ?>
 
 <!-- Local SEO + service area (photo background, city marquee) -->

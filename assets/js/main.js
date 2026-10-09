@@ -40,22 +40,91 @@
     });
   });
 
+  // Projects gallery — category filters + a lightbox (native <dialog>) with prev/next.
+  document.querySelectorAll('[data-gallery]').forEach(function (grid) {
+    var section = grid.closest('section');
+    var buttons = section ? section.querySelectorAll('[data-filter]') : [];
+    var tiles = Array.prototype.slice.call(grid.querySelectorAll('.project'));
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var f = btn.getAttribute('data-filter');
+        buttons.forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        tiles.forEach(function (t) { t.hidden = f !== 'all' && t.getAttribute('data-cat') !== f; });
+      });
+    });
+
+    if (typeof HTMLDialogElement !== 'function') { return; } // links still open the image
+    var dlg = document.createElement('dialog');
+    dlg.className = 'lightbox';
+    dlg.innerHTML =
+      '<figure class="lightbox__figure"><img class="lightbox__img" alt=""><figcaption class="lightbox__caption"></figcaption></figure>' +
+      '<button type="button" class="lightbox__btn lightbox__close" aria-label="Close">&times;</button>' +
+      '<button type="button" class="lightbox__btn lightbox__prev" aria-label="Previous photo">&#8249;</button>' +
+      '<button type="button" class="lightbox__btn lightbox__next" aria-label="Next photo">&#8250;</button>';
+    document.body.appendChild(dlg);
+    var img = dlg.querySelector('.lightbox__img');
+    var cap = dlg.querySelector('.lightbox__caption');
+    var current = 0, list = [];
+    function show(i) {
+      current = (i + list.length) % list.length;
+      var a = list[current];
+      img.src = a.href;
+      img.alt = a.getAttribute('data-caption') || '';
+      cap.textContent = img.alt;
+    }
+    grid.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-lightbox]');
+      if (!a) { return; }
+      e.preventDefault();
+      list = tiles.filter(function (t) { return !t.hidden; }).map(function (t) { return t.querySelector('[data-lightbox]'); });
+      show(list.indexOf(a));
+      dlg.showModal();
+    });
+    dlg.querySelector('.lightbox__close').addEventListener('click', function () { dlg.close(); });
+    dlg.querySelector('.lightbox__prev').addEventListener('click', function () { show(current - 1); });
+    dlg.querySelector('.lightbox__next').addEventListener('click', function () { show(current + 1); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); } }); // backdrop
+    dlg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { show(current - 1); }
+      if (e.key === 'ArrowRight') { show(current + 1); }
+    });
+  });
+
   // Footer year
   var y = document.querySelector('[data-year]');
   if (y) { y.textContent = new Date().getFullYear(); }
 
   // Before/after slider (progressive enhancement over a static block)
+  // A native range input (drag, tap, or arrow keys) drives --pos; on first view the
+  // divider sweeps once so visitors see it's interactive.
   document.querySelectorAll('[data-ba]').forEach(function (el) {
-    var handle = el.querySelector('.ba__handle');
-    var after = el.querySelector('.ba__after');
-    if (!handle || !after) { return; }
-    function set(x) {
-      var r = el.getBoundingClientRect();
-      var pct = Math.min(100, Math.max(0, ((x - r.left) / r.width) * 100));
-      after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
-      handle.style.left = pct + '%';
-    }
-    el.addEventListener('pointermove', function (e) { set(e.clientX); });
+    var range = el.querySelector('.ba__range');
+    if (!range) { return; }
+    var touched = false;
+    function set(v) { el.style.setProperty('--pos', v + '%'); }
+    range.addEventListener('input', function () { touched = true; set(range.value); });
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) { return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) { return; }
+      io.disconnect();
+      var start = null, keys = [50, 78, 24, 50], dur = 2200;
+      function step(ts) {
+        if (touched) { return; } // the visitor took over
+        if (start === null) { start = ts; }
+        var t = Math.min(1, (ts - start) / dur), seg = Math.min(2, Math.floor(t * 3)), local = t * 3 - seg;
+        var eased = 0.5 - Math.cos(local * Math.PI) / 2;
+        var v = keys[seg] + (keys[seg + 1] - keys[seg]) * eased;
+        set(v.toFixed(1)); range.value = v;
+        if (t < 1) { window.requestAnimationFrame(step); }
+      }
+      window.setTimeout(function () { window.requestAnimationFrame(step); }, 500);
+    }, { threshold: 0.6 });
+    io.observe(el);
   });
 
   // Services carousel — continuous marquee-style scroll (loops seamlessly),
@@ -192,7 +261,7 @@
     var revealSel = [
       '.section .wrap > .eyebrow', '.section .wrap > h2', '.section .wrap > p',
       '.section .wrap > .btn-row', '.cards > *', '.proof-grid > *', '.split > *',
-      '.finance > *', '.form-grid > *', '.footer-grid > *', '.chips-marquee', '.intro-split > *', '.lead-map > *'
+      '.finance > *', '.form-grid > *', '.footer-grid > *', '.chips-marquee', '.intro-split > *', '.lead-map > *', '.projects__head', '.project-grid > *', '.ba'
     ].join(',');
     var skip = '[data-book], [data-reveal], .fear-list, .faq, .carousel';
     var revealObserver = new IntersectionObserver(function (entries) {
@@ -257,6 +326,12 @@
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     });
+  }
+  if (header) {
+    var bar = header.querySelector('.utility-bar');
+    var setUtil = function () { header.style.setProperty('--util-h', (bar ? bar.offsetHeight : 0) + 'px'); };
+    setUtil();
+    window.addEventListener('resize', setUtil);
   }
   if (header || fab || toTop) {
     var lastY = 0, ticking = false;

@@ -8,6 +8,7 @@ breeze_part( 'service-page', array(
 	'eyebrow' => 'Remodeling',
 	'image'   => breeze_hero_image( 'remodeling' ),
 	'faqs'    => breeze_faqs( 'remodeling' ),
+	'gallery' => array( 'kitchens', 'bathrooms', 'interiors' ),
 	'title'   => 'Remodeling that protects the value you\'ve built.',
 	'lead'    => 'Kitchens, bathrooms, additions, and whole-home renovations, designed and built by a licensed team that handles the structure, the systems, and the finish.',
 	'intro_head' => 'Why remodel with Breeze',

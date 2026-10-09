@@ -17,6 +17,7 @@ $a = wp_parse_args( $args, array(
 	'closing_head' => '', 'closing_body' => '',
 	'image' => '',
 	'faqs' => array(),
+	'gallery' => array(), // project categories to show (inc/projects.php); empty = no gallery
 ) );
 
 breeze_part( 'hero', array(
@@ -70,6 +71,14 @@ breeze_part( 'hero', array(
 </section>
 <?php endif; ?>
 <?php
+if ( ! empty( $a['gallery'] ) ) {
+	breeze_part( 'projects', array(
+		'eyebrow' => $a['eyebrow'] . ' projects',
+		'title'   => 'Real work from our crews.',
+		'cats'    => $a['gallery'],
+		'filters' => true,
+	) );
+}
 if ( ! empty( $a['faqs'] ) ) {
 	breeze_part( 'faq', array(
 		'eyebrow' => $a['eyebrow'] . ' FAQs',

@@ -14,6 +14,7 @@ define( 'BREEZE_URI', get_template_directory_uri() );
 require_once BREEZE_DIR . '/inc/services.php';
 require_once BREEZE_DIR . '/inc/faqs.php';
 require_once BREEZE_DIR . '/inc/locations.php';
+require_once BREEZE_DIR . '/inc/projects.php';
 
 /**
  * Theme setup.
@@ -79,10 +80,10 @@ function breeze_config( $key = null ) {
 		'hero_poster'   => '', // optional: first-frame image for faster paint / reduced-motion fallback
 		// Service page hero backgrounds — paths relative to /wp-content/.
 		'hero_images'   => array(
-			'remodeling'         => '/uploads/2026/07/Remodeling-scaled.jpg',
+			'remodeling'         => '/uploads/2026/10/12.webp',   // client project photo (finished kitchen)
 			'hvac'               => '/uploads/2026/07/HVAC-scaled.jpg',
 			'electrical'         => '/uploads/2026/07/Electrical-scaled.jpg',
-			'general-contractor' => '/uploads/2026/07/GeneralContracting-scaled.jpg',
+			'general-contractor' => '/uploads/2026/10/6.webp',    // client project photo (framing in progress)
 		),
 		// Front-page "Serving the valley" section background.
 		'serving_bg'    => '/uploads/2026/07/ServingAreasBreeze-scaled.webp',
