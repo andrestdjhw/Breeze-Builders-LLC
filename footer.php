@@ -71,6 +71,21 @@ $phone_href    = breeze_config( 'phone_href' );
 	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+<?php // Cookie notice — informational (no analytics/ad cookies on the site). Shown by main.js until accepted. ?>
+<div class="cookie-notice" role="region" aria-label="Cookie notice" data-cookie-notice hidden>
+	<div class="cookie-notice__icon" aria-hidden="true">
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5A9 9 0 1111.5 3a3 3 0 003.5 3.5 3 3 0 003.5 3.5 3 3 0 002.5 2.5z"/><circle cx="8.5" cy="10.5" r="1"/><circle cx="12" cy="15.5" r="1"/><circle cx="16" cy="13" r="1"/></svg>
+	</div>
+	<div class="cookie-notice__body">
+		<p class="cookie-notice__title">We use cookies</p>
+		<p>This site uses essential cookies and trusted services (Google Maps, reCAPTCHA) to work properly and keep our forms spam-free. We don't sell your data.</p>
+		<div class="cookie-notice__actions">
+			<button type="button" class="btn btn--gold" data-cookie-accept>Accept</button>
+			<a class="cookie-notice__link" href="<?php echo esc_url( breeze_page_url( 'privacy-policy' ) ); ?>">Privacy Policy</a>
+		</div>
+	</div>
+</div>
+
 <?php wp_footer(); ?>
 </body>
 </html>

@@ -1,0 +1,93 @@
+<!--
+  EmailJS template: template_96yg7dj (paste into the EmailJS template editor, HTML/code view).
+  Variables sent by assets/js/main.js: name, phone, email, reply_to, city, service, details, page_url, time.
+  Email-safe markup: tables + inline styles only, no external CSS or web fonts.
+-->
+<div style="margin:0; padding:24px 12px; background-color:#eef4f9; font-family:Arial, Helvetica, sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; margin:0 auto; background-color:#ffffff; border-collapse:collapse;">
+
+    <!-- Header -->
+    <tr>
+      <td style="background-color:#0c3a59; padding:22px 28px;">
+        <div style="font-size:20px; line-height:1.1; font-weight:bold; letter-spacing:2px; color:#ffffff;">BREEZE BUILDERS</div>
+        <div style="font-size:11px; letter-spacing:1.5px; color:#a7c0d4; margin-top:4px;">GENERAL CONTRACTING AND ELECTRICAL</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color:#d84545; height:5px; line-height:5px; font-size:0;">&nbsp;</td>
+    </tr>
+
+    <!-- Intro -->
+    <tr>
+      <td style="padding:28px 28px 8px;">
+        <div style="font-size:12px; font-weight:bold; letter-spacing:2px; color:#d84545;">NEW ESTIMATE REQUEST</div>
+        <div style="font-size:24px; line-height:1.25; font-weight:bold; color:#0c3a59; margin-top:6px;">{{name}} needs help with {{service}}</div>
+        <div style="font-size:15px; line-height:1.5; color:#575859; margin-top:10px;">A new request came in through the website. Call back as soon as you can: a fast reply wins the job.</div>
+      </td>
+    </tr>
+
+    <!-- Call button -->
+    <tr>
+      <td style="padding:16px 28px 8px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td style="background-color:#d84545;">
+              <a href="tel:{{phone}}" style="display:inline-block; padding:13px 24px; font-size:14px; font-weight:bold; letter-spacing:1px; color:#ffffff; text-decoration:none;">CALL {{phone}}</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Details -->
+    <tr>
+      <td style="padding:20px 28px 4px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-size:15px; line-height:1.4;">
+          <tr>
+            <td style="width:120px; padding:11px 0; border-bottom:1px solid #dbe5ee; font-size:11px; font-weight:bold; letter-spacing:1.5px; color:#0c3a59; vertical-align:top;">NAME</td>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee; color:#26282a;">{{name}}</td>
+          </tr>
+          <tr>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee; font-size:11px; font-weight:bold; letter-spacing:1.5px; color:#0c3a59; vertical-align:top;">PHONE</td>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee;"><a href="tel:{{phone}}" style="color:#a93232; text-decoration:none; font-weight:bold;">{{phone}}</a></td>
+          </tr>
+          <tr>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee; font-size:11px; font-weight:bold; letter-spacing:1.5px; color:#0c3a59; vertical-align:top;">EMAIL</td>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee; color:#26282a;">{{email}}</td>
+          </tr>
+          <tr>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee; font-size:11px; font-weight:bold; letter-spacing:1.5px; color:#0c3a59; vertical-align:top;">CITY / ZIP</td>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee; color:#26282a;">{{city}}</td>
+          </tr>
+          <tr>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee; font-size:11px; font-weight:bold; letter-spacing:1.5px; color:#0c3a59; vertical-align:top;">SERVICE</td>
+            <td style="padding:11px 0; border-bottom:1px solid #dbe5ee;"><span style="display:inline-block; padding:3px 10px; background-color:#d3e3f0; color:#0c3a59; font-size:13px; font-weight:bold;">{{service}}</span></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Project details -->
+    <tr>
+      <td style="padding:20px 28px 8px;">
+        <div style="font-size:11px; font-weight:bold; letter-spacing:1.5px; color:#0c3a59; margin-bottom:8px;">PROJECT DETAILS</div>
+        <div style="background-color:#eef4f9; border-left:3px solid #d84545; padding:14px 16px; font-size:15px; line-height:1.55; color:#26282a; white-space:pre-line;">{{details}}</div>
+      </td>
+    </tr>
+
+    <!-- Reply tip -->
+    <tr>
+      <td style="padding:16px 28px 26px;">
+        <div style="font-size:13px; line-height:1.5; color:#575859;">Tip: if they left an email, just hit <strong>Reply</strong> to answer {{name}} directly.</div>
+      </td>
+    </tr>
+
+    <!-- Footer -->
+    <tr>
+      <td style="background-color:#072940; padding:16px 28px; font-size:12px; line-height:1.5; color:#a7c0d4;">
+        Received {{time}} from <a href="{{page_url}}" style="color:#dce9f4;">{{page_url}}</a><br>
+        Also saved in WordPress → Leads. Breeze Builders website.
+      </td>
+    </tr>
+  </table>
+</div>

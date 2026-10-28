@@ -36,6 +36,8 @@ breeze_part( 'legal-page', array(
 <ul>
 <li><strong>Google Maps</strong>, to show our location. Google\'s use of data is governed by the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</li>
 <li><strong>Google Fonts</strong>, to display our typography.</li>
+<li><strong>Google reCAPTCHA</strong>, to protect our estimate form from spam. It analyzes how the page is used; Google\'s <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a> apply.</li>
+<li><strong>EmailJS</strong>, which delivers the details you submit in our estimate form to our inbox.</li>
 <li><strong>Hosting and email providers</strong>, which store our website and deliver the messages you send us.</li>
 </ul>
 <p>We may also share information with subcontractors, suppliers, or financing partners only when needed to deliver the services you request, and with authorities when required by law.</p>' ),

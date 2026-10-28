@@ -3,7 +3,7 @@
  * Template Name: Contact / Get Estimate
  * @package Breeze
  * The form (template-parts/estimate-form.php) stores each request as a Lead in
- * wp-admin and emails breeze_config('email') — confirm that address before launch (#9).
+ * wp-admin and emails breeze_config('email').
  */
 get_header();
 ?>

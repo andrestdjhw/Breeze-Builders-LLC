@@ -51,6 +51,18 @@ function breeze_assets() {
 	wp_enqueue_style( 'breeze-tokens', BREEZE_URI . '/assets/css/tokens.css', array(), file_exists( $tokens ) ? filemtime( $tokens ) : BREEZE_VER );
 	wp_enqueue_style( 'breeze-main', BREEZE_URI . '/assets/css/main.css', array( 'breeze-tokens' ), file_exists( $main ) ? filemtime( $main ) : BREEZE_VER );
 	wp_enqueue_script( 'breeze-main', BREEZE_URI . '/assets/js/main.js', array(), file_exists( $js ) ? filemtime( $js ) : BREEZE_VER, true );
+
+	// Estimate form (home + contact): EmailJS SDK + reCAPTCHA v3, plus the public config main.js reads.
+	if ( is_front_page() || is_page( 'contact' ) ) {
+		$ejs = breeze_config( 'emailjs' );
+		wp_enqueue_script( 'emailjs', 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js', array(), null, true );
+		wp_enqueue_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . rawurlencode( breeze_config( 'recaptcha_site' ) ), array(), null, true );
+		wp_add_inline_script( 'breeze-main', 'window.BREEZE_FORMS = ' . wp_json_encode( array(
+			'emailjs'   => $ejs,
+			'recaptcha' => breeze_config( 'recaptcha_site' ),
+			'to'        => breeze_config( 'email' ),
+		) ) . ';', 'before' );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'breeze_assets' );
 
@@ -64,8 +76,7 @@ function breeze_config( $key = null ) {
 		// Palette "El Plano Maestro" (confirmed): MIDNIGHT #0C3A59 · EMBER #D84545 · SAND #DDD0C0 · SLATE #575859 · BREEZE #D3E3F0 · UMBER #3D0606
 		'phone_display' => '(725) 324-5441',            // confirmed by client 2026-10-08 (#2)
 		'phone_href'    => '+17253245441',
-		'email'         => 'info@breezebuildersgc.com', // owner/business email pending (open item #1)
-		'email_topbar'  => 'info@breezebuilders.com',   // shown in the top bar per client; differs from 'email' (…gc.com) — confirm which is correct
+		'email'         => 'info@breezebuilderus.com',  // confirmed by client 2026-10-28; also receives estimate-form leads
 		'license'       => 'NV License B + C-2',         // exact numbers pending (#8)
 		'insured'       => 'GL · WC · Umbrella',
 		'since'         => '2021',
@@ -87,6 +98,16 @@ function breeze_config( $key = null ) {
 		),
 		// Front-page "Serving the valley" section background.
 		'serving_bg'    => '/uploads/2026/07/ServingAreasBreeze-scaled.webp',
+		// Estimate form delivery: EmailJS (browser) + Google reCAPTCHA v3. Service/template/public key and
+		// the reCAPTCHA *site* key are public by design. The reCAPTCHA *secret* must never ship to the
+		// browser; when set, the WordPress handler verifies the token server-side (score >= 0.5).
+		'emailjs'       => array(
+			'service'  => 'service_6he579c',
+			'template' => 'template_96yg7dj',
+			'public'   => 'pzmLUiUT7pCly9WSG',
+		),
+		'recaptcha_site'   => '6LdQMgUuAAAAAINP5TE3QHE_bGPWkZdHttYixB3l',
+		'recaptcha_secret' => '', // TODO: paste the reCAPTCHA v3 secret key to enable server-side verification
 		'social'        => array(   // URLs pendientes (Daniel las pasa); '#' deja los links presentes pero inertes
 			'facebook'  => '#',
 			'tiktok'    => '#',
@@ -249,6 +270,20 @@ function breeze_handle_lead() {
 	if ( ! empty( $_POST['company'] ) ) {
 		$go( 'sent' );
 	}
+	// reCAPTCHA v3 (only once a secret key is configured).
+	$secret = breeze_config( 'recaptcha_secret' );
+	if ( $secret ) {
+		$token = isset( $_POST['recaptcha_token'] ) ? sanitize_text_field( wp_unslash( $_POST['recaptcha_token'] ) ) : '';
+		$check = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', array(
+			'timeout' => 8,
+			'body'    => array( 'secret' => $secret, 'response' => $token ),
+		) );
+		$result = is_wp_error( $check ) ? null : json_decode( wp_remote_retrieve_body( $check ), true );
+		// A Google outage shouldn't drop real leads; a definite low score / failure is treated as spam.
+		if ( is_array( $result ) && ( empty( $result['success'] ) || ( isset( $result['score'] ) && $result['score'] < 0.5 ) ) ) {
+			$go( 'sent' );
+		}
+	}
 
 	$fields = array(
 		'name'    => isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '',
@@ -276,8 +311,12 @@ function breeze_handle_lead() {
 		'post_content' => $body,
 	) );
 
-	$headers = $fields['email'] ? array( 'Reply-To: ' . $fields['name'] . ' <' . $fields['email'] . '>' ) : array();
-	$mailed  = wp_mail( breeze_config( 'email' ), 'New estimate request: ' . $title, $body, $headers );
+	// EmailJS already delivered the notification from the browser; only fall back to wp_mail if it didn't.
+	$mailed = ! empty( $_POST['emailjs_sent'] );
+	if ( ! $mailed ) {
+		$headers = $fields['email'] ? array( 'Reply-To: ' . $fields['name'] . ' <' . $fields['email'] . '>' ) : array();
+		$mailed  = wp_mail( breeze_config( 'email' ), 'New estimate request: ' . $title, $body, $headers );
+	}
 
 	$go( ( $saved && ! is_wp_error( $saved ) ) || $mailed ? 'sent' : 'error' );
 }

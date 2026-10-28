@@ -765,6 +765,8 @@ p  { margin: 0 0 var(--sp-3); }
 }
 .estimate-form__submit { width: 100%; justify-content: center; margin-top: var(--sp-1); }
 .estimate-form__note { display: flex; gap: 0.5rem; align-items: flex-start; margin: var(--sp-3) 0 0; font-size: 0.85rem; color: var(--muted); line-height: 1.45; }
+/* reCAPTCHA v3 badge hidden: the required attribution text is in the form note instead */
+.grecaptcha-badge { visibility: hidden; }
 .estimate-form__note svg { width: 16px; height: 16px; flex: none; margin-top: 0.15rem; color: var(--navy); }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sp-3); }
 @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
@@ -982,6 +984,33 @@ p  { margin: 0 0 var(--sp-3); }
 .call-fab:hover { background: var(--gold-600); color: #fff; text-decoration: none; }
 .call-fab.is-visible { opacity: 1; transform: none; pointer-events: auto; }
 @media (max-width: 720px) { .call-fab { display: none; } } /* mobile already uses .sticky-call */
+
+/* ---------- Cookie notice (bottom-left card; above the sticky call bar on mobile) ---------- */
+.cookie-notice {
+  position: fixed; left: 20px; bottom: 20px; z-index: 70;
+  width: min(420px, calc(100vw - 40px));
+  display: flex; gap: var(--sp-3); align-items: flex-start;
+  padding: var(--sp-4); background: var(--paper);
+  border-top: 4px solid var(--gold);
+  box-shadow: 0 18px 50px rgba(7, 41, 64, 0.25);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%, 0 var(--cut));
+  animation: cookie-in .5s var(--ease) both;
+}
+.cookie-notice[hidden] { display: none; }
+.cookie-notice.is-leaving { animation: cookie-out .3s var(--ease) both; }
+@keyframes cookie-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes cookie-out { to { opacity: 0; transform: translateY(24px); } }
+.cookie-notice__icon { flex: none; width: 40px; height: 40px; display: grid; place-items: center; background: var(--sky); color: var(--navy); }
+.cookie-notice__icon svg { width: 22px; height: 22px; }
+.cookie-notice__body p { margin: 0 0 var(--sp-2); font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
+.cookie-notice__body .cookie-notice__title { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-size: 1rem; color: var(--navy); margin-bottom: 0.3rem; }
+.cookie-notice__actions { display: flex; align-items: center; gap: var(--sp-3); margin-top: var(--sp-2); }
+.cookie-notice__actions .btn { padding: 0.7em 1.4em; font-size: 0.82rem; }
+.cookie-notice__link { font-size: 0.88rem; font-weight: 600; }
+@media (max-width: 720px) {
+  .cookie-notice { left: 12px; right: 12px; width: auto; bottom: 88px; padding: var(--sp-3); }
+  .cookie-notice__icon { display: none; }
+}
 
 /* ---------- Back-to-top button (bottom center, appears on scroll) ---------- */
 .to-top {

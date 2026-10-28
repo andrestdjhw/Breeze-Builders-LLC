@@ -24,8 +24,8 @@ $phone_href    = breeze_config( 'phone_href' );
 				<a class="utility-bar__phone" href="tel:<?php echo esc_attr( $phone_href ); ?>">
 					Call <?php echo esc_html( $phone_display ); ?>
 				</a>
-				<a class="utility-bar__email" href="mailto:<?php echo esc_attr( breeze_config( 'email_topbar' ) ); ?>">
-					<?php echo esc_html( breeze_config( 'email_topbar' ) ); ?>
+				<a class="utility-bar__email" href="mailto:<?php echo esc_attr( breeze_config( 'email' ) ); ?>">
+					<?php echo esc_html( breeze_config( 'email' ) ); ?>
 				</a>
 			</div>
 

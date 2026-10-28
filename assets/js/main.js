@@ -94,6 +94,80 @@
     });
   });
 
+  // Estimate form → EmailJS (+ reCAPTCHA v3 token), then the normal POST to WordPress,
+  // which stores the Lead and only emails itself if EmailJS failed (emailjs_sent flag).
+  var cfg = window.BREEZE_FORMS;
+  document.querySelectorAll('.estimate-form').forEach(function (form) {
+    if (!cfg) { return; } // no config on this page: plain WordPress submit
+    form.addEventListener('submit', function (e) {
+      if (form.getAttribute('data-ready') === '1') { return; } // second pass: let it post
+      e.preventDefault();
+      var btn = form.querySelector('[type="submit"]');
+      var label = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      function finish(sent) {
+        form.querySelector('[name="emailjs_sent"]').value = sent ? '1' : '';
+        form.setAttribute('data-ready', '1');
+        if (btn) { btn.textContent = label; }
+        HTMLFormElement.prototype.submit.call(form);
+      }
+      if (form.querySelector('[name="company"]').value) { finish(false); return; } // honeypot: skip EmailJS
+
+      var data = new FormData(form);
+      // Optional fields read "Not provided" in the email instead of leaving a blank row.
+      var val = function (k) { var v = (data.get(k) || '').trim(); return v || 'Not provided'; };
+      var params = {
+        name: val('name'), from_name: val('name'),
+        phone: val('phone'),
+        email: val('email'), reply_to: (data.get('email') || '').trim(), // blank = no Reply-To
+        city: val('city'), service: val('service'),
+        details: val('details'), message: val('details'),
+        page_url: window.location.href, to_email: cfg.to,
+        time: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })
+      };
+
+      function getToken() {
+        return new Promise(function (resolve) {
+          if (!window.grecaptcha || !cfg.recaptcha) { resolve(''); return; }
+          window.grecaptcha.ready(function () {
+            window.grecaptcha.execute(cfg.recaptcha, { action: 'estimate' }).then(resolve, function () { resolve(''); });
+          });
+          window.setTimeout(function () { resolve(''); }, 6000); // never hang the form on reCAPTCHA
+        });
+      }
+
+      getToken().then(function (token) {
+        form.querySelector('[name="recaptcha_token"]').value = token;
+        params['g-recaptcha-response'] = token;
+        if (!window.emailjs || !cfg.emailjs) { finish(false); return; }
+        window.emailjs.send(cfg.emailjs.service, cfg.emailjs.template, params, { publicKey: cfg.emailjs.public })
+          .then(function () { finish(true); }, function (err) {
+            if (window.console) { console.warn('EmailJS failed, falling back to WordPress email', err); }
+            finish(false);
+          });
+      });
+    });
+  });
+
+  // Cookie notice — shown until accepted; the choice is remembered in localStorage
+  // (with a cookie fallback when storage is blocked).
+  var notice = document.querySelector('[data-cookie-notice]');
+  if (notice) {
+    var KEY = 'breeze_cookie_notice';
+    var accepted = false;
+    try { accepted = window.localStorage.getItem(KEY) === 'accepted'; } catch (err) { /* storage blocked */ }
+    if (!accepted) { accepted = document.cookie.indexOf(KEY + '=accepted') !== -1; }
+    if (!accepted) {
+      window.setTimeout(function () { notice.hidden = false; }, 800); // let the page settle first
+      notice.querySelector('[data-cookie-accept]').addEventListener('click', function () {
+        try { window.localStorage.setItem(KEY, 'accepted'); } catch (err) { /* storage blocked */ }
+        document.cookie = KEY + '=accepted; max-age=31536000; path=/; SameSite=Lax';
+        notice.classList.add('is-leaving');
+        window.setTimeout(function () { notice.hidden = true; }, 300);
+      });
+    }
+  }
+
   // Footer year
   var y = document.querySelector('[data-year]');
   if (y) { y.textContent = new Date().getFullYear(); }

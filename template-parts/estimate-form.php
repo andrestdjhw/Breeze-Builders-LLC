@@ -26,6 +26,8 @@ $notes  = array(
 	<input type="hidden" name="redirect" value="<?php echo esc_url( get_permalink() ? get_permalink() : home_url( '/' ) ); ?>">
 	<input type="hidden" name="anchor" value="<?php echo esc_attr( $a['anchor'] ); ?>">
 	<?php wp_nonce_field( 'breeze_lead', 'breeze_lead_nonce' ); ?>
+	<input type="hidden" name="recaptcha_token" value="">
+	<input type="hidden" name="emailjs_sent" value="">
 	<?php // Honeypot: hidden from people, bots tend to fill it. ?>
 	<div class="estimate-form__hp" aria-hidden="true">
 		<label for="<?php echo esc_attr( $p ); ?>-company">Company</label>
@@ -50,6 +52,6 @@ $notes  = array(
 	<button class="btn btn--gold btn--lg estimate-form__submit" type="submit"><?php echo esc_html( $a['submit'] ); ?></button>
 	<p class="estimate-form__note">
 		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
-		<span>Free, no-obligation estimate. By sending, you agree we may call or text you about your request. See our <a href="<?php echo esc_url( breeze_page_url( 'privacy-policy' ) ); ?>">Privacy Policy</a>.</span>
+		<span>Free, no-obligation estimate. By sending, you agree we may call or text you about your request. See our <a href="<?php echo esc_url( breeze_page_url( 'privacy-policy' ) ); ?>">Privacy Policy</a>. Protected by reCAPTCHA: Google's <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a> apply.</span>
 	</p>
 </form>
